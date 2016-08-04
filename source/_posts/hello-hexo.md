@@ -41,7 +41,7 @@ $ hexo new 'hello hexo' # 產生的檔案會在 /source/_posts/hello-hexo.md
 ``` bash
 $ hexo generate # 產生網頁靜態檔案
 $ hexo server # 建立本機伺服器
-``` 
+```
 
 ## 部署
 
@@ -58,7 +58,7 @@ $ npm install hexo-deployer-git --save
 接著編輯 /_cinfig.yml 檔案
 修改網站網址以及設定部署方式
 
-``` yml
+``` yaml
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://<username>.github.io/
