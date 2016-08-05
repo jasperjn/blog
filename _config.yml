@@ -71,3 +71,6 @@ deploy:
   type: git
   repo: https://github.com/jasperjn/blog.git
   branch: gh-pages
+
+# Comments
+disqus_shortname: jasperjn
