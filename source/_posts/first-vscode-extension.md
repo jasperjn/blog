@@ -33,7 +33,7 @@ sudo npm install -g yo generator-code
 yo code
 ```
 
-![yo code](first-vscode-extension/yo-code.png)
+{% asset_img yo-code.png yo code %}
 
 選擇 New Extension (TypeScript) 之後輸入需要的資訊之後就會幫我們建立起擴充功能的專案結構
 
