@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>如何製作 VS Code Extension | jasperjn&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="如何製作 VS Code Extension前言Visual Studio Code 是 Microsoft 開發的 Open Source、跨平台的的程式碼編輯器。主打輕量且高擴充性。Visual Studio 一貫有的 IntelliSensee、支援 Typescript、整合 Git 等功能強大又快速的編輯器，非常適合前端工程師使用。覺得還不夠嗎？自己去找吧！擴充功能市集集合了許多開發者們">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何製作 VS Code Extension">
+<meta property="og:url" content="http://jasperjn.github.io/2016/08/05/first-vscode-extension/index.html">
+<meta property="og:site_name" content="jasperjn's blog">
+<meta property="og:description" content="如何製作 VS Code Extension前言Visual Studio Code 是 Microsoft 開發的 Open Source、跨平台的的程式碼編輯器。主打輕量且高擴充性。Visual Studio 一貫有的 IntelliSensee、支援 Typescript、整合 Git 等功能強大又快速的編輯器，非常適合前端工程師使用。覺得還不夠嗎？自己去找吧！擴充功能市集集合了許多開發者們">
+<meta property="og:image" content="http://jasperjn.github.io/blog/2016/08/05/first-vscode-extension/yo-code.png">
+<meta property="og:updated_time" content="2017-04-06T08:38:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何製作 VS Code Extension">
+<meta name="twitter:description" content="如何製作 VS Code Extension前言Visual Studio Code 是 Microsoft 開發的 Open Source、跨平台的的程式碼編輯器。主打輕量且高擴充性。Visual Studio 一貫有的 IntelliSensee、支援 Typescript、整合 Git 等功能強大又快速的編輯器，非常適合前端工程師使用。覺得還不夠嗎？自己去找吧！擴充功能市集集合了許多開發者們">
+<meta name="twitter:image" content="http://jasperjn.github.io/blog/2016/08/05/first-vscode-extension/yo-code.png">
+  
+    <link rel="alternate" href="/atom.xml" title="jasperjn&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-82054608-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">jasperjn&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://jasperjn.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-first-vscode-extension" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2016/08/05/first-vscode-extension/" class="article-date">
+  <time datetime="2016-08-05T07:55:00.000Z" itemprop="datePublished">2016-08-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      如何製作 VS Code Extension
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="如何製作-VS-Code-Extension"><a href="#如何製作-VS-Code-Extension" class="headerlink" title="如何製作 VS Code Extension"></a>如何製作 VS Code Extension</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a href="https://code.visualstudio.com/" target="_blank" rel="external">Visual Studio Code</a> 是 Microsoft 開發的 Open Source、跨平台的的程式碼編輯器。<br>主打輕量且高擴充性。Visual Studio 一貫有的 IntelliSensee、支援 Typescript、整合 Git 等功能強大又快速的編輯器，非常適合前端工程師使用。<br>覺得還不夠嗎？自己去找吧！<a href="https://marketplace.visualstudio.com/VSCode" target="_blank" rel="external">擴充功能市集</a>集合了許多開發者們分享的擴充功能。<br>如果還是找不到自己想要的功能，那就是試試動手做一個吧！</p>
+<h2 id="安裝-VS-Code"><a href="#安裝-VS-Code" class="headerlink" title="安裝 VS Code"></a>安裝 VS Code</h2><p>前往<a href="https://code.visualstudio.com" target="_blank" rel="external">官方網站</a>首頁即有下載連結</p>
+<h2 id="Let’s-Do-It"><a href="#Let’s-Do-It" class="headerlink" title="Let’s Do It"></a>Let’s Do It</h2><blockquote>
+<p>安裝 yo 之前要先安裝 Git 與 Node.js</p>
+</blockquote>
+<p>安裝 yo 與 vscode extension generator</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo npm install -g yo generator-code</div></pre></td></tr></table></figure>
+<p>安裝完成後執行 <code>yo code</code> 會開啟互動功能幫助我們建置專案模板</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yo code</div></pre></td></tr></table></figure>
+<img src="/blog/2016/08/05/first-vscode-extension/yo-code.png" alt="yo code" title="yo code">
+<p>選擇 New Extension (TypeScript) 之後輸入需要的資訊之後就會幫我們建立起擴充功能的專案結構</p>
+<h2 id="完成"><a href="#完成" class="headerlink" title="完成"></a>完成</h2><p>你的第一個擴充功能已經完成了，按下 <kbd>F5</kbd> 會新開一個進入實驗模式的 VS Code 視窗 (Extension Development Host)，<br>預設已經幫我們裝上目前在開發中的擴充功能，方便我們測試。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jasperjn.github.io/2016/08/05/first-vscode-extension/" data-id="cj165jjpr0000drz2ohnky5vf" class="article-share-link">Share</a>
+      
+        <a href="http://jasperjn.github.io/2016/08/05/first-vscode-extension/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2016/08/04/hello-hexo/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          自己的 blog 自己架 - 使用 hexo
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2016/08/17/visual-studio-code-typescript/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">visual-studio-code-typescript</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2016/08/17/visual-studio-code-typescript/">visual-studio-code-typescript</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2016/08/05/first-vscode-extension/">如何製作 VS Code Extension</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2016/08/04/hello-hexo/">自己的 blog 自己架 - 使用 hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 jasperjn<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'jasperjn';
+  
+  var disqus_url = 'http://jasperjn.github.io/2016/08/05/first-vscode-extension/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+  </div>
+</body>
+</html>
