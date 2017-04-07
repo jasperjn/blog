@@ -4,7 +4,10 @@ date: 2016-08-04 17:02:14
 tags:
 - hexo
 ---
-# 自己的 blog 自己架 - 使用 hexo
+
+使用 hexo 建立 blog
+
+<!--more-->
 
 ## 前言
 

@@ -1,9 +1,12 @@
 ---
-title: visual-studio-code-typescript
+title: Visual Studio Code 使用 Typescript
 date: 2016-08-17 11:50:56
 tags:
 ---
-# Visual Studio Code 使用 Typescript
+
+在 Visual Studio Code 開發 Typescript 應用
+
+<!--more-->
 
 初始化 npm
 

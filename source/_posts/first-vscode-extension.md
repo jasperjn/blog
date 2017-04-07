@@ -4,14 +4,14 @@ date: 2016-08-05 15:55:00
 tags:
 ---
 
-# 如何製作 VS Code Extension
-
 ## 前言
 
 [Visual Studio Code](https://code.visualstudio.com/) 是 Microsoft 開發的 Open Source、跨平台的的程式碼編輯器。
 主打輕量且高擴充性。Visual Studio 一貫有的 IntelliSensee、支援 Typescript、整合 Git 等功能強大又快速的編輯器，非常適合前端工程師使用。
 覺得還不夠嗎？自己去找吧！[擴充功能市集](https://marketplace.visualstudio.com/VSCode)集合了許多開發者們分享的擴充功能。
 如果還是找不到自己想要的功能，那就是試試動手做一個吧！
+
+<!--more-->
 
 ## 安裝 VS Code
 
