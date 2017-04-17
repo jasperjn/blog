@@ -1,7 +1,7 @@
 ---
 title: 如何製作 VS Code Extension
 date: 2016-08-05 15:55:00
-tags:
+tags: vscode
 ---
 
 ## 前言
