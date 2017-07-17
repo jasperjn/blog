@@ -36,4 +36,4 @@ DevTools 提供了兩種截圖方式。
 
 ## 參考資料
 
-* [What's New In DevTools (Chrome 59)](https://developers.google.com/web/updates/2017/04/devtools-release-notes)
+* [What's New In DevTools (Chrome 59)](https://developers.google.com/web/updates/2017/04/devtools-release-notes)
