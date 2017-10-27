@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="jasperjn&#39;s blog">
+    <title>使用 Google Cloud Platform 建立 Node.js 網站 - jasperjn&#39;s blog</title>
+    <meta name="author" content="jasperjn">
+    
+    
+    
+    <meta name="description" content="本文紀錄使用 Google Cloud Platform 建立 Node.js 網站的步驟。">
+<meta name="keywords" content="google cloud platform,google cloud sdk,app engine,gcp">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="使用 Google Cloud Platform 建立 Node.js 網站">
+<meta property="og:url" content="http://jasperjn.github.io/2017/10/27/google-cloud-platform/index.html">
+<meta property="og:site_name" content="jasperjn&#39;s blog">
+<meta property="og:description" content="本文紀錄使用 Google Cloud Platform 建立 Node.js 網站的步驟。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://jasperjn.github.io/blog/2017/10/27/google-cloud-platform/new-project.png">
+<meta property="og:image" content="http://jasperjn.github.io/blog/2017/10/27/google-cloud-platform/create-project.png">
+<meta property="og:image" content="http://jasperjn.github.io/blog/2017/10/27/google-cloud-platform/creating-project.png">
+<meta property="og:image" content="http://jasperjn.github.io/blog/2017/10/27/google-cloud-platform/dashboard.png">
+<meta property="og:image" content="http://jasperjn.github.io/blog/2017/10/27/google-cloud-platform/select-language.png">
+<meta property="og:image" content="http://jasperjn.github.io/blog/2017/10/27/google-cloud-platform/select-region.png">
+<meta property="og:image" content="http://jasperjn.github.io/blog/2017/10/27/google-cloud-platform/try-tutorial.png">
+<meta property="og:image" content="http://jasperjn.github.io/blog/2017/10/27/google-cloud-platform/hello-world.png">
+<meta property="og:image" content="http://jasperjn.github.io/blog/2017/10/27/google-cloud-platform/hello-app-engine.png">
+<meta property="og:image" content="http://jasperjn.github.io/blog/2017/10/27/google-cloud-platform/cloud-resource-manager.png">
+<meta property="og:image" content="http://jasperjn.github.io/blog/2017/10/27/google-cloud-platform/delete-project.png">
+<meta property="og:image" content="http://jasperjn.github.io/blog/2017/10/27/google-cloud-platform/confirm-delete-project.png">
+<meta property="og:image" content="http://jasperjn.github.io/blog/2017/10/27/google-cloud-platform/menu-app-engine-version.png">
+<meta property="og:image" content="http://jasperjn.github.io/blog/2017/10/27/google-cloud-platform/stop-versions.png">
+<meta property="og:updated_time" content="2017-10-27T03:28:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 Google Cloud Platform 建立 Node.js 網站">
+<meta name="twitter:description" content="本文紀錄使用 Google Cloud Platform 建立 Node.js 網站的步驟。">
+<meta name="twitter:image" content="http://jasperjn.github.io/blog/2017/10/27/google-cloud-platform/new-project.png">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/blog/assets/css/style-nuvue6sithwirecbhvw3dkaobiojqvtadsnhguwi7k04xklybw5djl1smadp.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-82054608-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/blog/ ">jasperjn&#39;s blog</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/blog/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">Home</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/blog/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">Categories</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/blog/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">Tags</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/blog/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">Archives</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">Search</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">About</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/blog/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            使用 Google Cloud Platform 建立 Node.js 網站
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-10-27T11:28:04+08:00">
+	
+		    Oct 27, 2017
+    	
+    </time>
+    
+</div>
+
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>本文紀錄使用 Google Cloud Platform 建立 Node.js 網站的步驟。</p>
+<a id="more"></a>
+<h2 id="申請免費試用帳號"><a href="#申請免費試用帳號" class="headerlink" title="申請免費試用帳號"></a>申請免費試用帳號</h2><p>前往 <a href="https://cloud.google.com/" target="_blank" rel="external">Google Cloud</a> 申請免費試用，申請成功會給你 300 美元的額度可以在 12 個月的試用期間內使用。申請時需要輸入信用卡做身份驗證。試用期滿之後除非手動升級至付費帳戶，不然不會自動收費。</p>
+<h2 id="建立專案"><a href="#建立專案" class="headerlink" title="建立專案"></a>建立專案</h2><p>申請完帳號前往 <a href="https://console.cloud.google.com" target="_blank" rel="external">Google Cloud Platform Console</a> 建立專案。系統預設已經有一個名稱為 <code>My First Project</code> 專案。可以直接沿用這個專案或是建立新的專案。</p>
+<img src="/blog/2017/10/27/google-cloud-platform/new-project.png" alt="建立專案" title="建立專案">
+<p>首先按右上方的「＋」建立專案</p>
+<img src="/blog/2017/10/27/google-cloud-platform/create-project.png" alt="新增專案" title="新增專案">
+<p>輸入專案名稱，這裡以「my-nodejs-web」為例</p>
+<p>按下「建立」</p>
+<img src="/blog/2017/10/27/google-cloud-platform/creating-project.png" alt="建立專案中" title="建立專案中">
+<p>建立專案需要些許的時間，專案名稱前面有載入中的圖示表示正在建立中，等待建立好了之後點擊專案名稱會進到專案的管理頁面－「資訊主頁」</p>
+<img src="/blog/2017/10/27/google-cloud-platform/dashboard.png" alt="資訊主頁" title="資訊主頁">
+<p>資訊主頁以卡片的方式呈現目前專案的整體資訊，包含專案資訊、服務狀態、計費功能、錯誤報告和教學文件等等。按右上方的自訂，可以新增或移除資訊卡片，也支援用拖曳的方式排列卡片。</p>
+<h2 id="建立-App-Engine"><a href="#建立-App-Engine" class="headerlink" title="建立 App Engine"></a>建立 App Engine</h2><p>選擇語言</p>
+<img src="/blog/2017/10/27/google-cloud-platform/select-language.png" alt="選擇語言" title="選擇語言">
+<p>選擇運行的程式語言，目前支援 Node.js、Java、Python、PHP、Go、Ruby、.NET。非上述的程式語言可以自訂 Runtimes 並部署</p>
+<p>選取位置</p>
+<img src="/blog/2017/10/27/google-cloud-platform/select-region.png" alt="選取位置" title="選取位置">
+<p>選取提供服務的機房位置，越接近位置的使用者延遲時間越短。一般來說視網站主要是服務哪個地區的使用者來選擇最靠近的位置</p>
+<p>啟用計費功能</p>
+<p>什麼？我都還沒部署就要開始收費？Google Cloud Platform 的計費方式是以 App 實際運行的分鐘數為單位來計費，每天會提供免費的使用額度，超過了才會計費。設定完成後系統會開始初始化 App Engine，初始化完成後會有導覽課程教你使用 Cloud Shell 部署 Node.js 程式，建議可以跟著教學走完一遍。</p>
+<p>Cloud Shell</p>
+<p>Google Cloud Platform 提供的線上 CLI 工具，可以使用 Cloud Shell 對 VM 下指令進行操作，預設 VM 上面已經幫我們裝好了 nvm、<br>Node.js、git、Google Cloud SKD。我們可以直接開始部署網站而不用煩惱環境建置，即使 Node.js 版本不同，也可以透過 nvm 切換非常方便。<br>更多的 Cloud Shell 功能參考<a href="https://cloud.google.com/shell/docs/features" target="_blank" rel="external">這裡</a></p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>建立完 App Engine 引導的教學是從 Cloud Shell clone 遠端的 repository 回來部署。但開發時都是在本機開發，如果要從本機部署到 App Engine 參考以下的方式：</p>
+<p>準備要部署的 node.js 專案，或使用官方提供的<a href="https://github.com/GoogleCloudPlatform/nodejs-docs-samples" target="_blank" rel="external">範例</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/GoogleCloudPlatform/nodejs-docs-samples</div></pre></td></tr></table></figure>
+<p>切換目錄至 hello-world 範例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd nodejs-docs-samples/appengine/hello-world</div></pre></td></tr></table></figure>
+<p>安裝 node packages</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install</div></pre></td></tr></table></figure>
+<p>本機啟動 server</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm start</div></pre></td></tr></table></figure>
+<p>啟動之後瀏覽 <a href="http://locahost:8080" target="_blank" rel="external">http://locahost:8080</a> 會看到大大的 Hello, world! 字樣，確認專案跑得起來就可以開始部署囉！</p>
+<h3 id="部署到-App-Engine"><a href="#部署到-App-Engine" class="headerlink" title="部署到 App Engine"></a>部署到 App Engine</h3><p>安裝 Google Cloud SDK</p>
+<p>還記得導覽課程教我們使用 Cloud Shell 部署程式嗎？裡面有使用 <code>gcloud app delopy</code> 指令部署，<code>gcloud</code> 指令是 Google Cloud SDK 提供的 CLI 工具，Cloud Shell 可以使用這個指令是因為建立 App Engine 時已經幫我們在 VM 上裝好了。如果要在本機部署的話需要另外<a href="https://cloud.google.com/sdk/" target="_blank" rel="external">下載</a>安裝。</p>
+<blockquote>
+<p>如果跳過了教學課程，點開 Console 右上方「更多」的圖示有一個選項是「試試互動教學課程」。去找吧，全部的教學課程都在這裡了！</p>
+</blockquote>
+<img src="/blog/2017/10/27/google-cloud-platform/try-tutorial.png" alt="試試互動教學課程" title="試試互動教學課程">
+<p>安裝完 Google Cloud SDK 之後，在部署前先確定目前設定的專案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcloud config list</div></pre></td></tr></table></figure>
+<p>顯示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[core]</div><div class="line">account = &lt;USER_NAME&gt;@gmail.com</div><div class="line">disable_usage_reporting = True</div><div class="line">project = expanded-idiom-183206</div><div class="line"></div><div class="line">Your active configuration is: [default]</div></pre></td></tr></table></figure>
+<p>如果在 Google Cloud Platform 有多個專案，但顯示的 <code>project = [PROJECT_ID]</code> 不是你想要部署的專案 ID，需要切換目前要執行的專案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcloud config set project [PROJECT_ID]</div></pre></td></tr></table></figure>
+<p>例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcloud config set project my-nodejs-web-184108</div></pre></td></tr></table></figure>
+<p>切換完專案後再執行一次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcloud config list</div></pre></td></tr></table></figure>
+<p>會得到</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[core]</div><div class="line">account = &lt;USER_NAME&gt;@gmail.com</div><div class="line">disable_usage_reporting = True</div><div class="line">project = my-nodejs-web-184108</div></pre></td></tr></table></figure>
+<p><code>project = [PROJECT_ID]</code> 有對應到指定的專案 ID 即表示切換成功，準備就緒就可以開始部署了！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcloud app deploy</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">You are creating an app <span class="keyword">for</span> project [my-nodejs-web-184108].</div><div class="line">WARNING: Creating an App Engine application <span class="keyword">for</span> a project is irreversible and the region</div><div class="line">cannot be changed. More information about regions is at</div><div class="line">https://cloud.google.com/appengine/docs/locations.</div><div class="line"></div><div class="line">Please choose the region <span class="built_in">where</span> you want your App Engine application</div><div class="line">located:</div><div class="line"></div><div class="line"> [1] us-central    (supports standard and flexible)</div><div class="line"> [2] europe-west3  (supports standard and flexible)</div><div class="line"> [3] europe-west   (supports standard and flexible)</div><div class="line"> [4] us-east1      (supports standard and flexible)</div><div class="line"> [5] europe-west2  (supports standard and flexible)</div><div class="line"> [6] australia-southeast1 (supports standard and flexible)</div><div class="line"> [7] us-east4      (supports standard and flexible)</div><div class="line"> [8] asia-northeast1 (supports standard and flexible)</div><div class="line"> [9] southamerica-east1 (supports standard and flexible)</div><div class="line"> [10] cancel</div><div class="line">Please enter your numeric choice:</div></pre></td></tr></table></figure>
+<p>如同在 Google Cloud Platform 上面建立 App Engine，一樣會問你想要建立在哪一區的機房上，輸入數字按 enter 繼續</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Please enter your numeric choice: 8</div><div class="line">Creating App Engine application <span class="keyword">in</span> project [my-nodejs-web-184108] and region [asia-northeast1]....|</div></pre></td></tr></table></figure>
+<p>建立環境中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Creating App Engine application <span class="keyword">in</span> project [my-nodejs-web-184108] and region [asia-northeast1]....<span class="keyword">done</span>.</div><div class="line">Services to deploy:</div><div class="line"></div><div class="line">descriptor:      [/Users/&lt;USER_NAME&gt;/Documents/repos/private/practice/nodejs-docs-samples/appengine/hello-world/app.yaml]</div><div class="line"><span class="built_in">source</span>:          [/Users/&lt;USER_NAME&gt;/Documents/repos/private/practice/nodejs-docs-samples/appengine/hello-world]</div><div class="line">target project:  [my-nodejs-web-184108]</div><div class="line">target service:  [default]</div><div class="line">target version:  [20171026t171227]</div><div class="line">target url:      [https://my-nodejs-web-184108.appspot.com]</div><div class="line"></div><div class="line"></div><div class="line">Do you want to <span class="built_in">continue</span> (Y/n)?</div></pre></td></tr></table></figure>
+<p>確認資訊都正確輸入 y 按 enter 繼續</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Do you want to <span class="built_in">continue</span> (Y/n)?  y</div><div class="line"></div><div class="line">If this is your first deployment, this may take a <span class="keyword">while</span>...\</div></pre></td></tr></table></figure>
+<p>第一次部署會花比較長的時間，請耐心等待</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div></pre></td><td class="code"><pre><div class="line">If this is your first deployment, this may take a while...done.</div><div class="line"></div><div class="line">Beginning deployment of service [default]...</div><div class="line">Building and pushing image for service [default]</div><div class="line">Some files were skipped. Pass `--verbosity=info` to see which ones.</div><div class="line">You may also view the gcloud log file, found at</div><div class="line">[/Users/&lt;USER_NAME&gt;/.config/gcloud/logs/2017.10.26/17.09.14.293094.log].</div><div class="line">Started cloud build [a1c1bc18-f97b-42b2-8755-7896e7fc4083].</div><div class="line">To see logs in the Cloud Console: https://console.cloud.google.com/gcr/builds/a1c1bc18-f97b-42b2-8755-7896e7fc4083?project=my-nodejs-web-184108</div><div class="line">--------------------------------------------------------------------------------------------- REMOTE BUILD OUTPUT ----------------------------------------------------------------------------------------------</div><div class="line">starting build &quot;a1c1bc18-f97b-42b2-8755-7896e7fc4083&quot;</div><div class="line"></div><div class="line">FETCHSOURCE</div><div class="line">Fetching storage object: gs://staging.my-nodejs-web-184108.appspot.com/asia.gcr.io/my-nodejs-web-184108/appengine/default.20171026t171227:latest#1509009315053713</div><div class="line">Copying gs://staging.my-nodejs-web-184108.appspot.com/asia.gcr.io/my-nodejs-web-184108/appengine/default.20171026t171227:latest#1509009315053713...</div><div class="line">- [1 files][ 35.9 KiB/ 35.9 KiB]</div><div class="line">Operation completed over 1 objects/35.9 KiB.</div><div class="line">BUILD</div><div class="line">Already have image (with digest): gcr.io/cloud-builders/docker</div><div class="line">Sending build context to Docker daemon  186.9kB</div><div class="line">Step 1/5 : FROM gcr.io/google_appengine/nodejs</div><div class="line">latest: Pulling from google_appengine/nodejs</div><div class="line">Digest: sha256:9300de34037776464d9ef7f22d48785c45f0995a9fd997c0f252095c533c8d79</div><div class="line">Status: Downloaded newer image for gcr.io/google_appengine/nodejs:latest</div><div class="line"> ---&gt; 8425c101028a</div><div class="line">Step 2/5 : RUN /usr/local/bin/install_node &apos;&gt;=4.3.2&apos;</div><div class="line"> ---&gt; Running in 0178e81eb42c</div><div class="line"> ---&gt; 49d7cfa92345</div><div class="line">Removing intermediate container 0178e81eb42c</div><div class="line">Step 3/5 : COPY . /app/</div><div class="line"> ---&gt; 068264833f20</div><div class="line">Removing intermediate container d20a9aa9e640</div><div class="line">Step 4/5 : RUN npm install --unsafe-perm ||   ((if [ -f npm-debug.log ]; then       cat npm-debug.log;     fi) &amp;&amp; false)</div><div class="line"> ---&gt; Running in c68a2295b192</div><div class="line">appengine-hello-world@0.0.1 /app</div><div class="line">`-- express@4.15.4</div><div class="line">  +-- accepts@1.3.4</div><div class="line">  | +-- mime-types@2.1.17</div><div class="line">  | | `-- mime-db@1.30.0</div><div class="line">  | `-- negotiator@0.6.1</div><div class="line">  +-- array-flatten@1.1.1</div><div class="line">  +-- content-disposition@0.5.2</div><div class="line">  +-- content-type@1.0.4</div><div class="line">  +-- cookie@0.3.1</div><div class="line">  +-- cookie-signature@1.0.6</div><div class="line">  +-- debug@2.6.8</div><div class="line">  | `-- ms@2.0.0</div><div class="line">  +-- depd@1.1.1</div><div class="line">  +-- encodeurl@1.0.1</div><div class="line">  +-- escape-html@1.0.3</div><div class="line">  +-- etag@1.8.1</div><div class="line">  +-- finalhandler@1.0.6</div><div class="line">  | +-- debug@2.6.9</div><div class="line">  | `-- unpipe@1.0.0</div><div class="line">  +-- fresh@0.5.0</div><div class="line">  +-- merge-descriptors@1.0.1</div><div class="line">  +-- methods@1.1.2</div><div class="line">  +-- on-finished@2.3.0</div><div class="line">  | `-- ee-first@1.1.1</div><div class="line">  +-- parseurl@1.3.2</div><div class="line">  +-- path-to-regexp@0.1.7</div><div class="line">  +-- proxy-addr@1.1.5</div><div class="line">  | +-- forwarded@0.1.2</div><div class="line">  | `-- ipaddr.js@1.4.0</div><div class="line">  +-- qs@6.5.0</div><div class="line">  +-- range-parser@1.2.0</div><div class="line">  +-- send@0.15.4</div><div class="line">  | +-- destroy@1.0.4</div><div class="line">  | +-- http-errors@1.6.2</div><div class="line">  | | `-- inherits@2.0.3</div><div class="line">  | `-- mime@1.3.4</div><div class="line">  +-- serve-static@1.12.4</div><div class="line">  +-- setprototypeof@1.0.3</div><div class="line">  +-- statuses@1.3.1</div><div class="line">  +-- type-is@1.6.15</div><div class="line">  | `-- media-typer@0.3.0</div><div class="line">  +-- utils-merge@1.0.0</div><div class="line">  `-- vary@1.1.2</div><div class="line"></div><div class="line"> ---&gt; 9f8aa37abfab</div><div class="line">Removing intermediate container c68a2295b192</div><div class="line">Step 5/5 : CMD npm start</div><div class="line"> ---&gt; Running in 9a782ba4ab9d</div><div class="line"> ---&gt; c0181e86181d</div><div class="line">Removing intermediate container 9a782ba4ab9d</div><div class="line">Successfully built c0181e86181d</div><div class="line">Successfully tagged asia.gcr.io/my-nodejs-web-184108/appengine/default.20171026t171227:latest</div><div class="line">PUSH</div><div class="line">Pushing asia.gcr.io/my-nodejs-web-184108/appengine/default.20171026t171227:latest</div><div class="line">The push refers to a repository [asia.gcr.io/my-nodejs-web-184108/appengine/default.20171026t171227]</div><div class="line">b6feccd0de9f: Preparing</div><div class="line">7f3f5e427e7d: Preparing</div><div class="line">333e94736e35: Preparing</div><div class="line">e0ef2f61d575: Preparing</div><div class="line">e1ded7a4e5ed: Preparing</div><div class="line">3c9e8a0fcc06: Preparing</div><div class="line">257da68b6c7d: Preparing</div><div class="line">b42d9538f28c: Preparing</div><div class="line">a4c6a82953f0: Preparing</div><div class="line">5a2c5095cca1: Preparing</div><div class="line">3c9e8a0fcc06: Waiting</div><div class="line">257da68b6c7d: Waiting</div><div class="line">b42d9538f28c: Waiting</div><div class="line">a4c6a82953f0: Waiting</div><div class="line">5a2c5095cca1: Waiting</div><div class="line">e0ef2f61d575: Layer already exists</div><div class="line">e1ded7a4e5ed: Layer already exists</div><div class="line">333e94736e35: Layer already exists</div><div class="line">3c9e8a0fcc06: Layer already exists</div><div class="line">b42d9538f28c: Layer already exists</div><div class="line">257da68b6c7d: Layer already exists</div><div class="line">a4c6a82953f0: Layer already exists</div><div class="line">7f3f5e427e7d: Pushed</div><div class="line">5a2c5095cca1: Layer already exists</div><div class="line">b6feccd0de9f: Pushed</div><div class="line">latest: digest: sha256:1ff4b4144d734a9ddc026d8c61da3a6b10166ed34943edd1119c73a29478425c size: 2414</div><div class="line">DONE</div><div class="line">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div><div class="line"></div><div class="line">Updating service [default]...done.</div><div class="line">Waiting for operation [apps/my-nodejs-web-184108/operations/07014b77-c8fc-4d61-9bb3-1ccab0175b5e] to complete...done.</div><div class="line">Updating service [default]...done.</div><div class="line">Deployed service [default] to [https://my-nodejs-web-184108.appspot.com]</div><div class="line"></div><div class="line">You can stream logs from the command line by running:</div><div class="line">  $ gcloud app logs tail -s default</div><div class="line"></div><div class="line">To view your application in the web browser run:</div><div class="line">  $ gcloud app browse</div></pre></td></tr></table></figure>
+<p>部署完成，輸入上面提示的網址或是指令就可以看我們剛剛的成品</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcloud app browse</div></pre></td></tr></table></figure>
+<img src="/blog/2017/10/27/google-cloud-platform/hello-world.png" alt="Hello world" title="Hello world">
+<h2 id="再次部署"><a href="#再次部署" class="headerlink" title="再次部署"></a>再次部署</h2><p>恭喜你部署成功了，接著試試看修改 <code>app.js</code> 裡面的內容，把 <code>Hello, world!</code> 改成 <code>Hello, App Engine!</code>，存檔後再部署一次看看網站是否有更新。</p>
+<p>../nodejs-docs-samples/appengine/hello-world/app.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span>;</div><div class="line"></div><div class="line"><span class="comment">// [START app]</span></div><div class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"></div><div class="line"><span class="keyword">const</span> app = express();</div><div class="line"></div><div class="line">app.get(<span class="string">'/'</span>, (req, res) =&gt; &#123;</div><div class="line">  res.status(<span class="number">200</span>).send(<span class="string">'Hello, App Engine!'</span>).end(); <span class="comment">// 原本是 Hello, world! 改成 Hello, App Engine!</span></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// Start the server</span></div><div class="line"><span class="keyword">const</span> PORT = process.env.PORT || <span class="number">8080</span>;</div><div class="line">app.listen(PORT, () =&gt; &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">`App listening on port <span class="subst">$&#123;PORT&#125;</span>`</span>);</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'Press Ctrl+C to quit.'</span>);</div><div class="line">&#125;);</div><div class="line"><span class="comment">// [END app]</span></div></pre></td></tr></table></figure>
+<p>執行部屬指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcloud app deploy</div></pre></td></tr></table></figure>
+<img src="/blog/2017/10/27/google-cloud-platform/hello-app-engine.png" alt="Hello App Engine" title="Hello App Engine">
+<p>成功！以後部屬只需要一個指令就可以完成！</p>
+<h2 id="刪除或停用"><a href="#刪除或停用" class="headerlink" title="刪除或停用"></a>刪除或停用</h2><p>部署成功之後，如果只是測試用，部署的版本不是真正要運行的網站，建議把專案刪除或停用以荷包持續失血呀！</p>
+<h3 id="刪除專案"><a href="#刪除專案" class="headerlink" title="刪除專案"></a>刪除專案</h3><p>進到一開始新增專案的地方，點擊左邊的「管理資源」</p>
+<img src="/blog/2017/10/27/google-cloud-platform/cloud-resource-manager.png" alt="管理資源" title="管理資源">
+<p>選取要刪除的專案，點擊上方的「刪除」</p>
+<img src="/blog/2017/10/27/google-cloud-platform/delete-project.png" alt="刪除專案" title="刪除專案">
+<p>輸入專案 ID 確認關閉專案，系統排程 30 天後才會把專案刪除，也就是說 30 天內反悔的話，隨時都可以把專案給救回來。</p>
+<img src="/blog/2017/10/27/google-cloud-platform/confirm-delete-project.png" alt="確認刪除專案" title="確認刪除專案">
+<h3 id="停用版本"><a href="#停用版本" class="headerlink" title="停用版本"></a>停用版本</h3><p>如果只是想停用不想刪除，參考以下的步驟：</p>
+<p>開啟左邊的選單，選擇 App Engine 裡面的「資訊主頁」或是直接選擇「版本」</p>
+<img src="/blog/2017/10/27/google-cloud-platform/menu-app-engine-version.png" alt="App Engine 資訊主頁-版本" title="App Engine 資訊主頁-版本">
+<p>選取狀態為 <code>Serving</code> 的版本，點選上方的停止，網站就不會繼續運行了。 </p>
+<img src="/blog/2017/10/27/google-cloud-platform/stop-versions.png" alt="停用版本" title="停用版本">
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>本次提到的指令：</p>
+<ul>
+<li><code>gcloud config list</code>：列出目前啟用的設定，包含帳號、專案等等。</li>
+<li><code>gcloud config set project [PROJECT_ID]</code>：切換專案。</li>
+<li><code>gcloud app deploy</code>：部署。</li>
+<li><code>gcloud app browse</code>：瀏覽。</li>
+</ul>
+<p>參考資源</p>
+<ul>
+<li><a href="https://cloud.google.com/shell/docs/features" target="_blank" rel="external">https://cloud.google.com/shell/docs/features</a></li>
+<li><a href="https://cloud.google.com/appengine/docs/flexible/nodejs/quickstart" target="_blank" rel="external">https://cloud.google.com/appengine/docs/flexible/nodejs/quickstart</a></li>
+<li><a href="https://cloud.google.com/sdk/docs/quickstart-mac-os-x" target="_blank" rel="external">https://cloud.google.com/sdk/docs/quickstart-mac-os-x</a></li>
+<li><a href="https://cloud.google.com/sdk/docs/managing-configurations" target="_blank" rel="external">https://cloud.google.com/sdk/docs/managing-configurations</a></li>
+</ul>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/blog/tags/app-engine/">app engine</a> <a class="tag tag--primary tag--small t-link" href="/blog/tags/gcp/">gcp</a> <a class="tag tag--primary tag--small t-link" href="/blog/tags/google-cloud-platform/">google cloud platform</a> <a class="tag tag--primary tag--small t-link" href="/blog/tags/google-cloud-sdk/">google cloud sdk</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/blog/2017/07/17/chrome-build-in-screenshot/" data-tooltip="使用 Chrome 內建截圖工具擷取網頁畫面">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://jasperjn.github.io/2017/10/27/google-cloud-platform/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://jasperjn.github.io/2017/10/27/google-cloud-platform/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://jasperjn.github.io/2017/10/27/google-cloud-platform/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 jasperjn. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/blog/2017/07/17/chrome-build-in-screenshot/" data-tooltip="使用 Chrome 內建截圖工具擷取網頁畫面">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://jasperjn.github.io/2017/10/27/google-cloud-platform/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://jasperjn.github.io/2017/10/27/google-cloud-platform/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://jasperjn.github.io/2017/10/27/google-cloud-platform/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://jasperjn.github.io/2017/10/27/google-cloud-platform/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://jasperjn.github.io/2017/10/27/google-cloud-platform/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://jasperjn.github.io/2017/10/27/google-cloud-platform/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <h4 id="about-card-name">jasperjn</h4>
+        
+            <h5 id="about-card-bio"><p>author.bio</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/blog/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/blog/assets/js/script-i4qo6jx6jji9fg0dftpya6ivemizsbow4fhow76d8dwpm7m1wbvi378ssumx.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://jasperjn.github.io/2017/10/27/google-cloud-platform/';
+                 
+                    this.page.identifier = '2017/10/27/google-cloud-platform/';
+                                  
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'jasperjn';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+
+</html>
