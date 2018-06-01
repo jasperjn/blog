@@ -1,8 +1,5 @@
-// Place your settings in this file to overwrite default and user settings.
 {
-    "markdownlint.config": {
-        "MD002": false,
-        "MD013": false,
-        "MD041": false
-    }
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  }
 }
