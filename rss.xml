@@ -1,0 +1,1193 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[jasperjn's blog]]></title><description><![CDATA[jasperjn 筆記]]></description><link>https://jasperjn.github.io/blog/</link><generator>RSS for Node</generator><lastBuildDate>Fri, 01 Jun 2018 08:27:12 GMT</lastBuildDate><item><title><![CDATA[使用 Google Cloud Platform 建立 Node.js 網站]]></title><description><![CDATA[本文紀錄使用 Google Cloud Platform 建立 Node.js 網站的步驟。 申請免費試用帳號 前往  Google Cloud  申請免費試用，申請成功會給你 300 美元的額度可以在 1…]]></description><link>https://jasperjn.github.io/blog//2017/10/27/google-cloud-platform/</link><guid isPermaLink="false">https://jasperjn.github.io/blog//2017/10/27/google-cloud-platform/</guid><pubDate>Fri, 27 Oct 2017 11:28:04 GMT</pubDate><content:encoded>&lt;p&gt;本文紀錄使用 Google Cloud Platform 建立 Node.js 網站的步驟。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2&gt;申請免費試用帳號&lt;/h2&gt;
+&lt;p&gt;前往 &lt;a href=&quot;https://cloud.google.com/&quot;&gt;Google Cloud&lt;/a&gt; 申請免費試用，申請成功會給你 300 美元的額度可以在 12 個月的試用期間內使用。申請時需要輸入信用卡做身份驗證。試用期滿之後除非手動升級至付費帳戶，不然不會自動收費。&lt;/p&gt;
+&lt;h2&gt;建立專案&lt;/h2&gt;
+&lt;p&gt;申請完帳號前往 &lt;a href=&quot;https://console.cloud.google.com&quot;&gt;Google Cloud Platform Console&lt;/a&gt; 建立專案。系統預設已經有一個名稱為 &lt;code class=&quot;language-text&quot;&gt;My First Project&lt;/code&gt; 專案。可以直接沿用這個專案或是建立新的專案。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/new-project-596875162df7b11efea21d9957dc9c3e-4dedc.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 75.35301668806162%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAAAsSAAALEgHS3X78AAABP0lEQVQ4y8WSy27CMBBF8/+/lC0LuqhoG4c8YEmSqgSK8yZ+3NqO3BQaWqCLjnRkZTxzNXMdZzab4WmxQLLZIMvSgTRFkiRI02TMXSQz5HmO+XwO58UjoGUDxgEub6esKuz3e+gIwxDO4pmg6QFa1Gg7hvbIr6fjqJQgpRRSSgRBAMfzfAilznmPMeQP4KxuPOM4huP7vhl9u6Moqg5lfUTXy0nqlqEoW1RqJV3XHoXJN2pSaVaO9IQEalO8bg94yyl27zXqTjV34gyJsmHqXnl2aEyd/h7y3AwVBOEw4feQV+aGvJRifBQryDk3xg7gAnICQAhx6qEOnZxu+B0rGEXKQ0LIp+C9YXvNb/N1wn8V1Kva88RDuzJjzFzcBWfjK2sj/xp2t/V6Dcd1XaxWKyyXS+OBPm/l4ZHA8zxorQ8ekYerwkO/ZAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;建立專案&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/new-project-596875162df7b11efea21d9957dc9c3e-fb8a0.png&quot;
+        srcset=&quot;/blog/static/new-project-596875162df7b11efea21d9957dc9c3e-1a291.png 148w,
+/blog/static/new-project-596875162df7b11efea21d9957dc9c3e-2bc4a.png 295w,
+/blog/static/new-project-596875162df7b11efea21d9957dc9c3e-fb8a0.png 590w,
+/blog/static/new-project-596875162df7b11efea21d9957dc9c3e-4dedc.png 779w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;首先按右上方的「＋」建立專案&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/create-project-dc413881b5034f813ab9ec1667121d9e-aba5e.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 479px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 53.65344467640919%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsSAAALEgHS3X78AAABDklEQVQoz62SSW6EMBBFOXAOkGNkm+tkk2UksgCBwmAIGAwEA0K0bfzTGKXTygAsuqS38VD1f1VZruvCtm34vo9bhBUEATzPQxRF0FpjnucfaMNydwRrv6Y2/C70N1bXdWjbFmVZgjGGuq4xDAOKgqLrelRc4aOXUDsql2TG8pIoyzKEYYgkSUAIQdM0iOMIrKqRMAHanCCk2lSmlFotO45j+jdN07dJra8sqzPrhy0uCouiBElSo2yx+xVrZXWpfgSTMH+PUOTE9JBzDkqpgfMWbT8iZafDEzYJn14qPL824OcBLAMax9EghIBUMyYxH95B08O7hzfcPxLEaQmaZ/8+PKxQynV5tz5fn+/FJxh0Wwm6fOPfAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;新增專案&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/create-project-dc413881b5034f813ab9ec1667121d9e-aba5e.png&quot;
+        srcset=&quot;/blog/static/create-project-dc413881b5034f813ab9ec1667121d9e-d23dc.png 148w,
+/blog/static/create-project-dc413881b5034f813ab9ec1667121d9e-046f7.png 295w,
+/blog/static/create-project-dc413881b5034f813ab9ec1667121d9e-aba5e.png 479w&quot;
+        sizes=&quot;(max-width: 479px) 100vw, 479px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;輸入專案名稱，這裡以「my-nodejs-web」為例&lt;/p&gt;
+&lt;p&gt;按下「建立」&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/creating-project-7912184472667067a61b53e28f41d7c1-b90aa.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 75.1937984496124%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAAAsSAAALEgHS3X78AAABYklEQVQ4y82SyW7CMBCG8/4PxZFbhXoJWZRgB8RWlI3sXv6OHRJQ1UqFXmrpUzwTzz/2zDir1Qqu6yLPc6JAlmWWNE0tk/0TJq4oCjRNA6PlMLZBkWcoy9I6n10m5nw+273v+3DCiKHpNa4k2Pc9pJS/RimFYRhQ17UV9DwPTrzhEAoQYpizaq2hCP0FIzDuQXttGf3axoVhCGe7TYyEvZ3WJiN9lZykH4D1C/qv5v/jGU2JzAqCAM6GJcgrgeNHDrY9gu9OKCp6RqdRtWrG2Ma/21+wP6W4ZBXKWpBf4doISMrp+YFpSoJeAGXV4lr3aDqBjl7f9orQM92gqdYk3lCyVtzOytHfyVsNqSlJwr/pnX6q06ZUcw05T6xxL/jzqMcacs5nwVfXFGvn8N8ImqfOM6seasgYs8Y0+S8hxf2Gh8MBf13TmEdRBGe5XCKOY6tuuvQsPg3z2/sa7nqNxWKBT6knjGsgCnhZAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;建立專案中&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/creating-project-7912184472667067a61b53e28f41d7c1-fb8a0.png&quot;
+        srcset=&quot;/blog/static/creating-project-7912184472667067a61b53e28f41d7c1-1a291.png 148w,
+/blog/static/creating-project-7912184472667067a61b53e28f41d7c1-2bc4a.png 295w,
+/blog/static/creating-project-7912184472667067a61b53e28f41d7c1-fb8a0.png 590w,
+/blog/static/creating-project-7912184472667067a61b53e28f41d7c1-b90aa.png 774w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;建立專案需要些許的時間，專案名稱前面有載入中的圖示表示正在建立中，等待建立好了之後點擊專案名稱會進到專案的管理頁面 －「資訊主頁」&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/dashboard-584107dccd299ec46660a2099d549e44-5b3ac.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 75.29411764705883%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAAAsSAAALEgHS3X78AAAB8ElEQVQ4y22TiW7bMBBE+Z0FCqRA0+OPirZo0vxYDNSWZPmSZUnUPeVjsq5qhMCCx+7OzixJ9/57oi+PqT49JPr8O9P9Q6qvT5nefUt0/wtfOMf3+M+Ix+5+EJOF3Ewffqb6GNZuV7Qqqla+qdW2rbpgzH3Xaug7TeMQZ/Zmvmvke6928KrDuum8Sl8HnFquqirtdjt578WYpknzPGkMs/m6rgtn84tvmnXyFz3na63yjf4cMz1v18rrky6+kuv7XlmWqSzLkKQXewXuul7n8zmubUwAj6PKotQuD0QaH/ZTTGp9K0fwfr/X5XL5PzEyneOaFtR1ffXXoT37w16n0ykqQ80QWkOMQ87hcIhMABhDdWwYhisgY7kmJ8/zmEMxWoNS1o4KsAPAgJgJsKCmaeI5DM1HiyBCPucYcQ6wNE3jZjlghI9EDFZWEGmbzUZFUcSCgFrhyBDqBN1KNt9tIdhwkRABNPYx5DA7UGFgld7qoUlnb4DH4zFeCiogcwUk0UBproEQYLdKjL1FjD3vkx5yjpkiBzrPhmrxh7xeBmbNvpW8bNPyImMPYbXdbpUkSeyHMQSIBKQBsCzEnhx7u5YTGQIIdd4VLEkwyUhhb7LM8HEhgLK2QayD1Xod/uVqFZ+CSTRAA10aZ8izFi2L/QVN+311mPyz3gAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;資訊主頁&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/dashboard-584107dccd299ec46660a2099d549e44-fb8a0.png&quot;
+        srcset=&quot;/blog/static/dashboard-584107dccd299ec46660a2099d549e44-1a291.png 148w,
+/blog/static/dashboard-584107dccd299ec46660a2099d549e44-2bc4a.png 295w,
+/blog/static/dashboard-584107dccd299ec46660a2099d549e44-fb8a0.png 590w,
+/blog/static/dashboard-584107dccd299ec46660a2099d549e44-526de.png 885w,
+/blog/static/dashboard-584107dccd299ec46660a2099d549e44-fa2eb.png 1180w,
+/blog/static/dashboard-584107dccd299ec46660a2099d549e44-5b3ac.png 1275w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;資訊主頁以卡片的方式呈現目前專案的整體資訊，包含專案資訊、服務狀態、計費功能、錯誤報告和教學文件等等。按右上方的自訂，可以新增或移除資訊卡片，也支援用拖曳的方式排列卡片。&lt;/p&gt;
+&lt;h2&gt;建立 App Engine&lt;/h2&gt;
+&lt;p&gt;選擇語言&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/select-language-21f1de56459cdaca1dd6f5fed98d58cd-45fcc.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 64.77572559366754%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAAAsSAAALEgHS3X78AAAB3ElEQVQ4y31TSUvDQBjN7/DmUfDofhBBQTzpwYsHQcSDK1QR3PUgePEkiBeXfyDoLxBEEBUpFmxqaAtalwoeusSk6WTy/GaykNbowMtMJsmb973vRXEcB5EAwDkPUP9cjGAd2lfExeYE25sDAN+GiUKhhFJZR6ViwjRNGIZB79oBIV3h8buE+DWkNm/NPdioVqsBGGMEWjMOZjshckDhpGbvNI+FgxdsnLxi5TCHtaMc1o9fsUpzbP8ZB2f5SFui7FBEqYNrGhpHEuhdfEL7tIqe+Sf0ifWMiobhB4xsZ+SHQp1lWVR+xYMp51pCUji6k0HLZBKDG2kMLGvoX9IwsKJhaDONrjkVE7tZzwoQgSW99KHrujwk8NAm94e3MmgaU9EdS6FtOoXWqSQ6ZjR0zqbQPJ6kA7NwvPJ8haIx4t6fQ10G4ukvXCRyuHnUcRn/wnVSx/lVFrdqEeeXb4hrRanQL1s05a8IyS5zxwTjhZpeF8sfkqRU/iZ1LoFQI8j8bgu19eSK/KjC8K4zcPLnM/HgZrBsy0jI0PDo8IeV1SjUiShvWLAptM939/JBsSR8Et64PvkE4cyF9/zh/imMjBVhFSXRpijDqjIvwCwoK0pRpMLaH+X3qfXK/hs/0RPRARE+rDAAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;選擇語言&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/select-language-21f1de56459cdaca1dd6f5fed98d58cd-fb8a0.png&quot;
+        srcset=&quot;/blog/static/select-language-21f1de56459cdaca1dd6f5fed98d58cd-1a291.png 148w,
+/blog/static/select-language-21f1de56459cdaca1dd6f5fed98d58cd-2bc4a.png 295w,
+/blog/static/select-language-21f1de56459cdaca1dd6f5fed98d58cd-fb8a0.png 590w,
+/blog/static/select-language-21f1de56459cdaca1dd6f5fed98d58cd-45fcc.png 758w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;選擇運行的程式語言，目前支援 Node.js、Java、Python、PHP、Go、Ruby、.NET。非上述的程式語言可以自訂 Runtimes 並部署&lt;/p&gt;
+&lt;p&gt;選取位置&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/select-region-ff5f48621d96cf31468b425ec2ff1ed8-30ea3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 546px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 116.11721611721613%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAXCAYAAAALHW+jAAAACXBIWXMAAAsSAAALEgHS3X78AAAEGklEQVQ4y52UCW8TVxSF/c/7L1qgJQkhaSmLgqAEkUKAgGPH8b4l8crsjnePt7FnPF/vjHEAlUqoTzq69+m9Oe/cZW6k1+sxGo2YzeaMx+MQi8WC1WoVYjqdhueDwYDhcHjj9/v9cL9cLvF9/+Z+xDRNer0uY3sY2larFZJslm3bGIZBcE9V1RCWZaFpGoqiiJBZeC8gDRAJNksPxrMVrrcm8TwPx3GYz+ehv1nBB99bG3WhwkDyfAntkY/jfrkUhB1gQ+i6LpPJJLRfE2yU3SgcjYb0JY/9XicMudMJ7Dqvgd/tdr9JwffWN4SW1SKXy5PJ5igWS6TSabFFyuUymUyGSqWCrhuMRZ0tBbPHYm0pnEQ2Fn8qxQwSsfqcjkiv28HSFa5NjW7b5NoyUJVPNJvNsEB9UW0Punxq1lE/1VGatRDtlk7LUHGdjXo/RMTozchoLnnDJad71K/nGJ0R9mwhIXh07CU5w6fRdihZcsfwBCvyuiv7FcUWFEyfSjtoHSHMaQt+jsKtU3iSnfG6PORYcNoMXvSoXi/5Rc53z+HXOOwlYUf8k6sOp5UOOwmPrbMVe6l1t0RK6oTXFybvaxoF1aSgXJNp9nlRdETlktO6w76QPC8MOSxbHJYGpJUGVi+D2c1zaZbJaSXOldZa4aU+5X21Rlo9o2BEqZs6H64c3l5N+ftyxX5qxXF+QKx8wVH1mNdXhxTNKB8rb3hXe0VKO5GUZSkZdbyAsKg7IhnuJ13eVk5IJWOkU2XeXDTC0HZF3d6ZyfP4KdHaBypmAq0lndCMkVejpBtR/kr1eJR1Wbo3hD7bCUjULKqltzxNJCVnM7ZiS7blLFbvcdawSDVN+YcVJv0y02GZdr/AYaHJ3diCg0KQww1hYq3kQXrFx4bBw5wdJvlW1OfPtCtNrkqb1Oj2NWpWl6QQJxp5Xl6UwiIF3x/k/XVRCsqU395P2Eu43Iu7bAXVzqgc5U44znbZP1+IijYfq3EutBgHaYftuOT2fMqDZJvdxJz9xIKnQcihQm3GnRNRebqQ13zuSd4eZqdEcy85SuW5L0rvxJD8NaT3MvwuRdqKSavEPR5lFiQrTc4LlzzLeWuFRVUUSlHuBclPrfvtUUYaXa/wR2YuxSJ85Kg841VpvN4nVmEhn2SXZOsGRwWTxznWVc4qc3Y+jNmPDdiOudwWNQ/TEw6yNrcl/LtxP0SgMjgL/PvnHnuCXSHeSQQPeDwrLHADQqO/5EKZcKn0yaouKR2yuk9GkA5BiM0+OKsaQ2p6n6Y1Qm1PqRkDsROC+RAOB1VVZPY5X/3kX3727+M/BxmR6WRE91ql07ZwFssfwnr4iu8swqm++noeVlSbx++6VLXp53Hu/2sK/wg2gzYSK/T4aVslXrJvCP/P2pD+AxVEo3tz19n/AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;選取位置&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/select-region-ff5f48621d96cf31468b425ec2ff1ed8-30ea3.png&quot;
+        srcset=&quot;/blog/static/select-region-ff5f48621d96cf31468b425ec2ff1ed8-efee6.png 148w,
+/blog/static/select-region-ff5f48621d96cf31468b425ec2ff1ed8-7d4b6.png 295w,
+/blog/static/select-region-ff5f48621d96cf31468b425ec2ff1ed8-30ea3.png 546w&quot;
+        sizes=&quot;(max-width: 546px) 100vw, 546px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;選取提供服務的機房位置，越接近位置的使用者延遲時間越短。一般來說視網站主要是服務哪個地區的使用者來選擇最靠近的位置&lt;/p&gt;
+&lt;p&gt;啟用計費功能&lt;/p&gt;
+&lt;p&gt;什麼？我都還沒部署就要開始收費？Google Cloud Platform 的計費方式是以 App 實際運行的分鐘數為單位來計費，每天會提供免費的使用額度，超過了才會計費。設定完成後系統會開始初始化 App Engine，初始化完成後會有導覽課程教你使用 Cloud Shell 部署 Node.js 程式，建議可以跟著教學走完一遍。&lt;/p&gt;
+&lt;p&gt;Cloud Shell&lt;/p&gt;
+&lt;p&gt;Google Cloud Platform 提供的線上 CLI 工具，可以使用 Cloud Shell 對 VM 下指令進行操作，預設 VM 上面已經幫我們裝好了 nvm、
+Node.js、git、Google Cloud SKD。我們可以直接開始部署網站而不用煩惱環境建置，即使 Node.js 版本不同，也可以透過 nvm 切換  非常方便。更多的 Cloud Shell 功能參考&lt;a href=&quot;https://cloud.google.com/shell/docs/features&quot;&gt;這裡&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;部署&lt;/h2&gt;
+&lt;p&gt;建立完 App Engine 引導的教學是從 Cloud Shell clone 遠端的 repository 回來部署。但開發時都是在本機開發，如果要從本機部署到 App Engine 參考以下的方式：&lt;/p&gt;
+&lt;p&gt;準備要部署的 node.js 專案，或使用官方提供的&lt;a href=&quot;https://github.com/GoogleCloudPlatform/nodejs-docs-samples&quot;&gt;範例&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; clone https://github.com/GoogleCloudPlatform/nodejs-docs-samples&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;切換目錄至 hello-world 範例&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;cd nodejs-docs-samples/appengine/hello-world&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;安裝 node packages&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;npm install&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;本機啟動 server&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;npm start&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;啟動之後瀏覽 &lt;a href=&quot;http://locahost:8080&quot;&gt;http://locahost:8080&lt;/a&gt; 會看到大大的 Hello, world! 字樣，確認專案跑得起來就可以開始部署囉！&lt;/p&gt;
+&lt;h3&gt;部署到 App Engine&lt;/h3&gt;
+&lt;p&gt;安裝 Google Cloud SDK&lt;/p&gt;
+&lt;p&gt;還記得導覽課程教我們使用 Cloud Shell 部署程式嗎？裡面有使用 &lt;code class=&quot;language-text&quot;&gt;gcloud app delopy&lt;/code&gt; 指令部署，&lt;code class=&quot;language-text&quot;&gt;gcloud&lt;/code&gt; 指令是 Google Cloud SDK 提供的 CLI 工具，Cloud Shell 可以使用這個指令是因為建立 App Engine 時已經幫我們在 VM 上裝好了。如果要在本機部署的話需要另外&lt;a href=&quot;https://cloud.google.com/sdk/&quot;&gt;下載&lt;/a&gt;安裝。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果跳過了教學課程，點開 Console 右上方「更多」的圖示有一個選項是「試試互動教學課程」。去找吧，全部的教學課程都在這裡了！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/try-tutorial-e7454ee317df36d990439359d142380d-1f62f.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 296px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 120.27027027027026%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAYCAYAAAD6S912AAAACXBIWXMAAAsSAAALEgHS3X78AAAC30lEQVQ4y5VUS08TURSeP+IPMDFxrYiAj4XGhUvXGldEY9QotEqiLly5MlFAhMTExF/gi1g2lhqgxEIIRaCPaZlHnzOdMkw7bT/vuXqbaZ0WPMmXe+fec745zyudfqjg/GMV5xhOsf3lpxpGHqkYCqi49ETD4LjK7y9OaDgzpuLCxJ97Oh8KqhgOarj5ysC1F0VuL528oyDw3sCtmRJO3Fbw4fs+rj7PsR9oeDNv4fhoFtdfFnB/roRjNzK4O1vElWc6Px8YU3A2qOPeW5PdWxgM6JCGxmWMBGQM/8XAgzRGJzXMzpfx+mMRU19MTH02MM0w+cnEzFcT03TGzyuY+1bBxDsdw2MpjARlSFuyia20wfGL7TcSZZTNfQAO4hs/8SMcQiwagZzcQoe0HNRsg2+tqs3sStxego80XBduo8kU96FqOvKFIipWFY1mi5+zBU7NhW07fO+69bat1GQn3XCcGvpJq9Xq+K7X6+xHDUbegkSXXjSbTb5qmobFxUWsra1hZ2cHsVgM0WgUqVSKkziOA8uy+L5Wq6HBCMlOoo0XLoXLQMpERFAUhf8gnU6jVCq1CSuVSttDAtn75pCU+4nwRnhnGEb7W/LLDyn5CaVDpIRWEtu2ufdtQqEkQOHSpaqqCIVCiEQiHMlksqMgYqVodF3nXpO9b1GItFqtIpvNIpfLcZim6Ut4cHDACYX9f4XcTdZNyEP2eufNE3m1tLSE7e1tJBKJNpHQo6oSmQj5n6J0ExaLRd578Xi8I3/eUKltKJq+hLT6tY1IurfSosqHEvbLobd4vjn0C1m0TTgcxurqKtbX17G3t3dolXt6SOHR6FHuaHZp5MrlckeOj+xhrxz2kiOFTCgUClheXubhrqys8Ipvbm7yViIsLCzwljq0yoKQQqb+o1xmMhkOmllZljl2d3eRz+d5P/YlFK1A4+ctkvet9KaHXhp63nwJvQNPijS/vSDuaRUPLdn/Bk+2CL3ZoXmKAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;試試互動教學課程&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/try-tutorial-e7454ee317df36d990439359d142380d-1f62f.png&quot;
+        srcset=&quot;/blog/static/try-tutorial-e7454ee317df36d990439359d142380d-03926.png 148w,
+/blog/static/try-tutorial-e7454ee317df36d990439359d142380d-0e88b.png 295w,
+/blog/static/try-tutorial-e7454ee317df36d990439359d142380d-1f62f.png 296w&quot;
+        sizes=&quot;(max-width: 296px) 100vw, 296px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;安裝完 Google Cloud SDK 之後，在部署前先確定目前設定的專案：&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;gcloud config list&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;顯示&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;core&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+account &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;USER_NAME&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;@gmail.com
+disable_usage_reporting &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; True
+project &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; expanded-idiom-183206
+
+Your active configuration is: &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;default&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;如果在 Google Cloud Platform 有多個專案，但顯示的 &lt;code class=&quot;language-text&quot;&gt;project = [PROJECT_ID]&lt;/code&gt; 不是你想要部署的專案 ID，需要切換目前要執行的專案：&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;gcloud config set project [PROJECT_ID]&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;例如&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;gcloud config set project my-nodejs-web-184108&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;切換完專案後再執行一次&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-｀｀&quot;&gt;&lt;code class=&quot;language-｀｀&quot;&gt;gcloud config list&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;會得到&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;core&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+account &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;USER_NAME&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;@gmail.com
+disable_usage_reporting &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; True
+project &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; my-nodejs-web-184108&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;project = [PROJECT_ID]&lt;/code&gt; 有對應到指定的專案 ID 即表示切換成功，準備就緒就可以開始部署了！&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;gcloud app deploy&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;You are creating an app &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; project &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;my-nodejs-web-184108&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;.
+WARNING: Creating an App Engine application &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; a project is irreversible and the region
+cannot be changed. More information about regions is at
+https://cloud.google.com/appengine/docs/locations.
+
+Please choose the region where you want your App Engine application
+located:
+
+ &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;1&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; us-central    &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;supports standard and flexible&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;2&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; europe-west3  &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;supports standard and flexible&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;3&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; europe-west   &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;supports standard and flexible&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;4&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; us-east1      &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;supports standard and flexible&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;5&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; europe-west2  &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;supports standard and flexible&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;6&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; australia-southeast1 &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;supports standard and flexible&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;7&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; us-east4      &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;supports standard and flexible&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;8&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; asia-northeast1 &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;supports standard and flexible&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;9&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; southamerica-east1 &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;supports standard and flexible&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;10&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; cancel
+Please enter your numeric choice:&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;如同在 Google Cloud Platform 上面建立 App Engine，一樣會問你想要建立在哪一區的機房上，輸入數字按 enter 繼續&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;Please enter your numeric choice: 8
+Creating App Engine application &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; project &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;my-nodejs-web-184108&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; and region &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;asia-northeast1&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;建立環境中&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;Creating App Engine application &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; project &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;my-nodejs-web-184108&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; and region &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;asia-northeast1&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;done.
+Services to deploy:
+
+descriptor:      &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;/Users/&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;USER_NAME&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;/Documents/repos/private/practice/nodejs-docs-samples/appengine/hello-world/app.yaml&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+source:          &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;/Users/&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;USER_NAME&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;/Documents/repos/private/practice/nodejs-docs-samples/appengine/hello-world&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+target project:  &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;my-nodejs-web-184108&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+target service:  &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;default&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+target version:  &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;20171026t171227&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+target url:      &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;https://my-nodejs-web-184108.appspot.com&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+
+Do you want to &lt;span class=&quot;token keyword&quot;&gt;continue&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Y/n&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;?&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;確認資訊都正確輸入 y 按 enter 繼續&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;Do you want to &lt;span class=&quot;token keyword&quot;&gt;continue&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Y/n&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;?  y
+
+If this is your first deployment, this may take a while&lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;.\&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;第一次部署會花比較長的時間，請耐心等待&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;If this is your first deployment, this may take a while...done.
+
+Beginning deployment of service [default]...
+Building and pushing image for service [default]
+Some files were skipped. Pass `--verbosity=info` to see which ones.
+You may also view the gcloud log file, found at
+[/Users/&amp;lt;USER_NAME&amp;gt;/.config/gcloud/logs/2017.10.26/17.09.14.293094.log].
+Started cloud build [a1c1bc18-f97b-42b2-8755-7896e7fc4083].
+To see logs in the Cloud Console: https://console.cloud.google.com/gcr/builds/a1c1bc18-f97b-42b2-8755-7896e7fc4083?project=my-nodejs-web-184108
+--------------------------------------------------------------------------------------------- REMOTE BUILD OUTPUT ----------------------------------------------------------------------------------------------
+starting build &amp;quot;a1c1bc18-f97b-42b2-8755-7896e7fc4083&amp;quot;
+
+FETCHSOURCE
+Fetching storage object: gs://staging.my-nodejs-web-184108.appspot.com/asia.gcr.io/my-nodejs-web-184108/appengine/default.20171026t171227:latest#1509009315053713
+Copying gs://staging.my-nodejs-web-184108.appspot.com/asia.gcr.io/my-nodejs-web-184108/appengine/default.20171026t171227:latest#1509009315053713...
+- [1 files][ 35.9 KiB/ 35.9 KiB]
+Operation completed over 1 objects/35.9 KiB.
+BUILD
+Already have image (with digest): gcr.io/cloud-builders/docker
+Sending build context to Docker daemon  186.9kB
+Step 1/5 : FROM gcr.io/google_appengine/nodejs
+latest: Pulling from google_appengine/nodejs
+Digest: sha256:9300de34037776464d9ef7f22d48785c45f0995a9fd997c0f252095c533c8d79
+Status: Downloaded newer image for gcr.io/google_appengine/nodejs:latest
+ ---&amp;gt; 8425c101028a
+Step 2/5 : RUN /usr/local/bin/install_node &amp;#39;&amp;gt;=4.3.2&amp;#39;
+ ---&amp;gt; Running in 0178e81eb42c
+ ---&amp;gt; 49d7cfa92345
+Removing intermediate container 0178e81eb42c
+Step 3/5 : COPY . /app/
+ ---&amp;gt; 068264833f20
+Removing intermediate container d20a9aa9e640
+Step 4/5 : RUN npm install --unsafe-perm ||   ((if [ -f npm-debug.log ]; then       cat npm-debug.log;     fi) &amp;amp;&amp;amp; false)
+ ---&amp;gt; Running in c68a2295b192
+appengine-hello-world@0.0.1 /app
+`-- express@4.15.4
+  +-- accepts@1.3.4
+  | +-- mime-types@2.1.17
+  | | `-- mime-db@1.30.0
+  | `-- negotiator@0.6.1
+  +-- array-flatten@1.1.1
+  +-- content-disposition@0.5.2
+  +-- content-type@1.0.4
+  +-- cookie@0.3.1
+  +-- cookie-signature@1.0.6
+  +-- debug@2.6.8
+  | `-- ms@2.0.0
+  +-- depd@1.1.1
+  +-- encodeurl@1.0.1
+  +-- escape-html@1.0.3
+  +-- etag@1.8.1
+  +-- finalhandler@1.0.6
+  | +-- debug@2.6.9
+  | `-- unpipe@1.0.0
+  +-- fresh@0.5.0
+  +-- merge-descriptors@1.0.1
+  +-- methods@1.1.2
+  +-- on-finished@2.3.0
+  | `-- ee-first@1.1.1
+  +-- parseurl@1.3.2
+  +-- path-to-regexp@0.1.7
+  +-- proxy-addr@1.1.5
+  | +-- forwarded@0.1.2
+  | `-- ipaddr.js@1.4.0
+  +-- qs@6.5.0
+  +-- range-parser@1.2.0
+  +-- send@0.15.4
+  | +-- destroy@1.0.4
+  | +-- http-errors@1.6.2
+  | | `-- inherits@2.0.3
+  | `-- mime@1.3.4
+  +-- serve-static@1.12.4
+  +-- setprototypeof@1.0.3
+  +-- statuses@1.3.1
+  +-- type-is@1.6.15
+  | `-- media-typer@0.3.0
+  +-- utils-merge@1.0.0
+  `-- vary@1.1.2
+
+ ---&amp;gt; 9f8aa37abfab
+Removing intermediate container c68a2295b192
+Step 5/5 : CMD npm start
+ ---&amp;gt; Running in 9a782ba4ab9d
+ ---&amp;gt; c0181e86181d
+Removing intermediate container 9a782ba4ab9d
+Successfully built c0181e86181d
+Successfully tagged asia.gcr.io/my-nodejs-web-184108/appengine/default.20171026t171227:latest
+PUSH
+Pushing asia.gcr.io/my-nodejs-web-184108/appengine/default.20171026t171227:latest
+The push refers to a repository [asia.gcr.io/my-nodejs-web-184108/appengine/default.20171026t171227]
+b6feccd0de9f: Preparing
+7f3f5e427e7d: Preparing
+333e94736e35: Preparing
+e0ef2f61d575: Preparing
+e1ded7a4e5ed: Preparing
+3c9e8a0fcc06: Preparing
+257da68b6c7d: Preparing
+b42d9538f28c: Preparing
+a4c6a82953f0: Preparing
+5a2c5095cca1: Preparing
+3c9e8a0fcc06: Waiting
+257da68b6c7d: Waiting
+b42d9538f28c: Waiting
+a4c6a82953f0: Waiting
+5a2c5095cca1: Waiting
+e0ef2f61d575: Layer already exists
+e1ded7a4e5ed: Layer already exists
+333e94736e35: Layer already exists
+3c9e8a0fcc06: Layer already exists
+b42d9538f28c: Layer already exists
+257da68b6c7d: Layer already exists
+a4c6a82953f0: Layer already exists
+7f3f5e427e7d: Pushed
+5a2c5095cca1: Layer already exists
+b6feccd0de9f: Pushed
+latest: digest: sha256:1ff4b4144d734a9ddc026d8c61da3a6b10166ed34943edd1119c73a29478425c size: 2414
+DONE
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Updating service [default]...done.
+Waiting for operation [apps/my-nodejs-web-184108/operations/07014b77-c8fc-4d61-9bb3-1ccab0175b5e] to complete...done.
+Updating service [default]...done.
+Deployed service [default] to [https://my-nodejs-web-184108.appspot.com]
+
+You can stream logs from the command line by running:
+  $ gcloud app logs tail -s default
+
+To view your application in the web browser run:
+  $ gcloud app browse&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;部署完成，輸入上面提示的網址或是指令就可以看我們剛剛的成品&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;gcloud app browse&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/hello-world-b728efbf2d3d29fdb936611db035ba0a-72574.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 58.9041095890411%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAAsSAAALEgHS3X78AAABz0lEQVQoz6WT327SUBzHmaveGG92vPdGfBGv9w7Khc/gI/AQDCGDICNS3AZlFELYFTcCF8BK/49CNywaXYFSSvvz147NmBgj+k0+p7+ck37OLznnhEKYw/wR9b5Y2/tweEzS6TQ5LhfJablEimcMYc7KhKYLJBaLkUwmQ7LZLDmIHZB4PE4SiQRJpVJ79XqdII9DdzkvsfvKp3OrJTRvJFm+EQa8yXMDc8BxJnfBmaIomuPx2BQEweR53lRV1VQUJUCSpG+dTgeazea7eyGdz7/6/nUKn6fXYHyZgjrRQMd6bOigX+ugDYcwRC4vVZBlGSRRBIHnQcHaMAxYrVbQbrdPUbUbCAuFQgQ7AH2kr6/0K9daLT3L3rBceovFwpvNZp6FX8uyvPl8HuDP27btAAa7PUHVw0DIsmzEc11/J9dxHA+2y9ofRqPRT2G1Wo1sFl3Ew8AWBEJN037t8E4Y2G6tsCn/mN8KK5XK68Dmus6G9d+Csf1/8dA+3gsbjcYb+M9MJpMqqqhAGI1GX9ZqtROGYUrbginiGbC5XO4tqh6FksnkDhZPkGfIi3/kOfI0HA7fdkjT9A7eo91+v0/1er2t6Ha7FL4WqtVqPfBdPwCeWKblwlI4zAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Hello world&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/hello-world-b728efbf2d3d29fdb936611db035ba0a-fb8a0.png&quot;
+        srcset=&quot;/blog/static/hello-world-b728efbf2d3d29fdb936611db035ba0a-1a291.png 148w,
+/blog/static/hello-world-b728efbf2d3d29fdb936611db035ba0a-2bc4a.png 295w,
+/blog/static/hello-world-b728efbf2d3d29fdb936611db035ba0a-fb8a0.png 590w,
+/blog/static/hello-world-b728efbf2d3d29fdb936611db035ba0a-72574.png 657w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h2&gt;再次部署&lt;/h2&gt;
+&lt;p&gt; 恭喜你部署成功了， 接著試試看  修改 &lt;code class=&quot;language-text&quot;&gt;app.js&lt;/code&gt; 裡面的內容，把 &lt;code class=&quot;language-text&quot;&gt;Hello, world!&lt;/code&gt; 改成 &lt;code class=&quot;language-text&quot;&gt;Hello, App Engine!&lt;/code&gt;，存檔後再部署一次看看網站是否有更新。&lt;/p&gt;
+&lt;p&gt;../nodejs-docs-samples/appengine/hello-world/app.js&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token string&quot;&gt;&apos;use strict&apos;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// [START app]&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; express &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;express&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; app &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;express&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+app&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;/&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;req&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; res&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  res
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;Hello, App Engine!&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 原本是 Hello, world! 改成 Hello, App Engine!&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// Start the server&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;PORT&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;PORT&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;8080&lt;/span&gt;
+app&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;listen&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token string&quot;&gt;`App listening on port &lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;Press Ctrl+C to quit.&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// [END app]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;執行部屬指令&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;gcloud app deploy&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/hello-app-engine-5b17135e11cd5384f9c6990861db60b9-72574.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 58.9041095890411%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAAsSAAALEgHS3X78AAAB0klEQVQoz6WTzXLSUBTHqY1uHDe97t2IL+K676AsfAYfgYegCFMYpIwE20IogWHoio3AAmiaT0oSBKF+NEAIJfd4klbswnGK/md+uWfunfu7Z+beBAKY/ewB8z5f2fmwf0iSySQ5LObJcbFA8icc4U6KhGVzJBKJkFQqRdLpNNmL7JFoNEpisRhJJBI71WqVII8Dv3Ja4He1T6d2Q6pfKap6JQnnloicC4IlnAmWLMuWaZqWJEmWKIpWr9ezNE3zURTle6vVgnq9/m4tZLPZVz++TuDLZAiX3y5BnwxggLU5xnE4AL3fhz5ycdEDVVVBkWWQRBE0rMfjMSyXS2g2m8eo2vaFuVwuZBgmDD8PV4qsuH1DpwtnQW2PhU3n8zmdTqfUxtG2bTqbzXy8ecdxrgGD3R6h6qEv5EulEHVdwEXX2+SduEFW3scwjN/Ccrkcul10EeoVlNL74gt1Xb/TIc+vhfQmcFf6t/xRWCqVXvs2172+ZXVfMI63Fy/t41pYq9XewH9mNBqVUcX4wnA4/LJSqRxxHFfYFEwe74DPZDJvUfUoEI/Ht7B4gjxDXvwjz5GnwWDwpkOWZbfwHW13u12m0+lsRLvdZvBvYRqNxgPP9RN6DKZ2kDkGRwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;App Engine&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/hello-app-engine-5b17135e11cd5384f9c6990861db60b9-fb8a0.png&quot;
+        srcset=&quot;/blog/static/hello-app-engine-5b17135e11cd5384f9c6990861db60b9-1a291.png 148w,
+/blog/static/hello-app-engine-5b17135e11cd5384f9c6990861db60b9-2bc4a.png 295w,
+/blog/static/hello-app-engine-5b17135e11cd5384f9c6990861db60b9-fb8a0.png 590w,
+/blog/static/hello-app-engine-5b17135e11cd5384f9c6990861db60b9-72574.png 657w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;成功！以後部屬只需要一個指令就可以完成！&lt;/p&gt;
+&lt;h2&gt;刪除或停用&lt;/h2&gt;
+&lt;p&gt;部署成功之後，如果只是測試用，部署的版本不是真正要運行的網站，建議把專案刪除或停用以荷包持續失血呀！&lt;/p&gt;
+&lt;h3&gt;刪除專案&lt;/h3&gt;
+&lt;p&gt;進到一開始新增專案的地方，點擊左邊的「管理資源」&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/cloud-resource-manager-6ff16db36e6c2b3e071d5369c2c020fb-7372c.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 75.76923076923077%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAAAsSAAALEgHS3X78AAABaElEQVQ4y62TbW+CMBSF+f//yMQvflYgmXGOVwFNnG4OVKAttD1rq0aXgWYvJzzp5fZyeltSazgcwrZtJMkCy2WGNE0Vyc3YT6ZqoiiC7wdYrVYYj8ewHMfF+26P4lChqhtwAajnMRJGu48Cz7OZiZMkgTWZOKgYlGmBw5GA0BaE8fvQMyquCUOe58YwDENlaDvQiwne4Cp5B3TUnbSIY1iu65rULj+irBkq0oA1ElTBzpi4lahV97pGj7qONsLM6061RxTFpzMkrdr/coN0tcV6k6OiEiURX9C5Q9Xi9a1Q7LHe5tiXjckfaw7ljTA6d6hVliVIXYMQctqGPIPrKIUApQSMUTBKIQQ3eSGE8YjjG0Mpr2eh4y66pPOdhpzzux/2LaTVaaiTfZ09otfwt/oXw8t2v3XoOI55advWTPwObjz0vbam0yn+qstvzLIM1mAwMJfa8zwEQfBjfN+H/eRhPn/BaDTCJ55yhcHVsCXdAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;管理資源&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/cloud-resource-manager-6ff16db36e6c2b3e071d5369c2c020fb-fb8a0.png&quot;
+        srcset=&quot;/blog/static/cloud-resource-manager-6ff16db36e6c2b3e071d5369c2c020fb-1a291.png 148w,
+/blog/static/cloud-resource-manager-6ff16db36e6c2b3e071d5369c2c020fb-2bc4a.png 295w,
+/blog/static/cloud-resource-manager-6ff16db36e6c2b3e071d5369c2c020fb-fb8a0.png 590w,
+/blog/static/cloud-resource-manager-6ff16db36e6c2b3e071d5369c2c020fb-7372c.png 780w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;選取要刪除的專案，點擊上方的「刪除」&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/delete-project-1561bd805edbfb4fd69053732f3372e9-8ed2d.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 404px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 69.55445544554455%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAAAsSAAALEgHS3X78AAABiElEQVQ4y6WT607DMAyF+/5vtEk8AfziDxKw0TG2JWWs1zRNcznY3ipVE9JARPrkym2Oj500CyHAh4jgPdq2FbquwzAMiJHy9J7ph4BhDLCOIhFjgOktqsYIg3PyfdbaiGOT4JzFYrHAcrmUmOc5eKWUCODu0WKlPFbaI/8M8u55c8LyXuPhSaNuOsllMSYEUp67YeIlNzF6julS4IxzI+zgKDp46pBz2TiO9BBnbhJ+WvzNvOBUNM2Kci7jWVVVBa01mqaRGSqlBM7tdjscDgeZq3RzJXpNZoxBT3CcqrBwXdcCF2PcZei3IEE6URfxdSqxXq/FzX+WOLSW2iY33CIzXR12OjmbZnaz5fNsArVVikBRFORSSdxut+j7/nwofAAp3UQc6pPD+75C8WWgjh0+VImdrrAnytaj6RNqE3+FOKxo076glo+tiL28KbzmCqtNgc+SxtElEg4ou3gTEjQ41iOpJ0kY99MdTL9GBHNlsdEOazWQuGeJ2SVPfz/l603T3/IXZxPfn9RCiqV0/rUAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;刪除專案&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/delete-project-1561bd805edbfb4fd69053732f3372e9-8ed2d.png&quot;
+        srcset=&quot;/blog/static/delete-project-1561bd805edbfb4fd69053732f3372e9-38ba6.png 148w,
+/blog/static/delete-project-1561bd805edbfb4fd69053732f3372e9-e7c8f.png 295w,
+/blog/static/delete-project-1561bd805edbfb4fd69053732f3372e9-8ed2d.png 404w&quot;
+        sizes=&quot;(max-width: 404px) 100vw, 404px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;輸入專案 ID 確認關閉專案， 系統排程 30 天後才會把專案刪除， 也就是說 30 天內反悔的話，隨時都可以把專案給救回來。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/confirm-delete-project-8c67e673ff6a074f012dfa85cbdbc8d6-86566.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 532px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 62.96992481203007%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAAAsSAAALEgHS3X78AAABcElEQVQ4y6WTyYoCQRBE+///wk/wrq22CB48eXBfcENw35du7RhfQvU4gszIJARZWVVGRmW0XjqdVqfTUbVaVb1eV7vd/gHOGo2GarWanbN+B869Uqmk+XyuSqWi3W6n8XisyWRiRKzJ6/Va5XLZ8m/h5XI57fd767BcLjUajTSdTjUYDKy+Xq+G8/msMAx1v9/f4na7yfN9X3Ec2/OazaZ6vZ6h1WpZRj2XX4PfvK6552UyGSsWi4WRdrvdhAyVEB6PRxvHarXSZrMxJc9EPwiz2awVPJvLYLvdWuaZh8PB4Ag5gxCSZySEzJDZDIdDM2E2m9nw+/2+qQUQ/yUSQjpgBt1R4lSiCGAONc2cWkbBPmA/iiLjMVMInEXJ5XLR6XSy7GpImCNjceeQUrt9N4aEECWuyzs4A14dBjzXCJ3LdPgUUfS9hhBBXhAE+k/sQumM4JgP+2FKKpWyv1WhUBDkn6BYDOTnHsgHyufzwuAvQ3LUvweVElIAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;確認刪除專案&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/confirm-delete-project-8c67e673ff6a074f012dfa85cbdbc8d6-86566.png&quot;
+        srcset=&quot;/blog/static/confirm-delete-project-8c67e673ff6a074f012dfa85cbdbc8d6-edab3.png 148w,
+/blog/static/confirm-delete-project-8c67e673ff6a074f012dfa85cbdbc8d6-73ebe.png 295w,
+/blog/static/confirm-delete-project-8c67e673ff6a074f012dfa85cbdbc8d6-86566.png 532w&quot;
+        sizes=&quot;(max-width: 532px) 100vw, 532px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3&gt;停用版本&lt;/h3&gt;
+&lt;p&gt;如果只是想停用不想刪除，參考以下的步驟：&lt;/p&gt;
+&lt;p&gt;開啟左邊的選單，選擇 App Engine 裡面的「資訊主頁」或是直接選擇「版本」&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/menu-app-engine-version-6daa8ac94d4c77452bdac390be27f903-9a39c.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 381px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 246.71916010498686%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAxCAYAAADa6ImIAAAACXBIWXMAAAsSAAALEgHS3X78AAAFc0lEQVRIx5VXyW4jVRT1J7FgTQsJCQI0EmrE2AtgwZoFqwQB3YDU0Jk8xHYkfgGphwihLLLJQCZnnp3Bduy47EqcxEnseKrDO7f8rEqlnKGkm/eq/Oq8c+89976K763OLD741cCDLnt874mBd38x0PHEtnd+MvChes7fOpq/vf1jFh1POc8qO8DD37J4/2kWH6nR98b3B3j0Rx5v/sBFOXzeY+K7yBE+fpbHw9/z+KzblPknf5r49Lkp9w+6DPnt0fMTfNFXxLfhMzwOFPHNQBG+0CsDg//kMKDG8OscIkM58FngpYFg0wIvDPhf2CMt9CqH3r/T+Prnf/FV52t82TmEx11DMvqgrkKxov5aqNfrKF/WcPNl2UOjhL+ifoT6nyEa6kYk2I2oMl+1ZmFkoYhytYFEroK1ZAmWRfAG6o1Gc7Sa1kCjYQOen5cQDIXR29cPfyAEvz8o5uPLvKp1y83B875aB7i0XC4jFAqht7cXgUBAgfnFfOflGuZXkzBPa4gnTPwX28DSRgqxpR3MLe9ian4TK1tpLG/sY3ZxG5n8BYxCBWmjgHB4AD09vS0wASycXCiANI6KdWzt5TAxs4rF9aR6OY6ZhTgmY+tYi2cwv7KLaQWezp0hY5aQSJsYHIyiv79fmGrzFYtFcelSxdBqkwa62Gi6XqlaqKmbUqmESCQi7g4MDLTMd3Z2hlQqqYJdR+HoCAeZDMx83p4fZHB4aNpQKtZ2vO1t3YBXGO7t7aFarYLzjAI0DEOBHSCdTqt5zk5ME1An0QtQGBKELBtKEhcXF0oO59eVZ1nX5m0BT09PMTY2JjJYW1vDzMyMrVu1gZPRnRmS3Y11YVme920BT05OhNnl5SX29/exurqKycnJFmsnOz1nid7IkAnRLtpldS7x5DMnq9tclizz5Z2dHdk1m80iHo97uugcuVFbHRKQQFx0fHwscvECc88JGA6HpdyuMKTLjCMZcmTWTdNsyeeuWb7CcGFhQRKwvr6OqakpxGIx5HK5a+zcWSZDXcvBYFCslRS3PMi4Vqt5xlADkl13d7eA9vX1iYls5ufnBWB3d1fYUtyjo6MYHx9HpVK5BsiNtMueMaQGnazImEC0mxi27TbUHIFuqxavpFxjSJc3Njak03g1gpsYRqNRYcjkXHFZs2vIoVQXc1aOl3ToFVXBUmXpJhIJjIyM2IArKysSt1QqhaWlJVm4vLx8jbUG41rqdXFxEdPT05JE3lNyAkhG7fTWricSlGVKZrrm5+bm7AZL2swoK4R1nUwmpYtvb2+LlLQKWkeuAiMJesTuri8yFoZH6vzgLqwWUqcxRqxtzt2x5FrGnYB8V1/CkIAsMy1WgtCYfbLn3NkXnXrl+UOPCNRiyJf4kC4fHh6Kq3STi8mAcXInh2C0vDodGUPd8lqABNOBvetRQECGgxvzdGwB0iUGnzHjj5TQ5uamsOZI0zp11zN7J4uCSb2SFCc7Z9t390A3IENERXBTKoEaFpdpZMikeLnnVYaUDmVGwNnZWUmsADKbPO1ouqm6QbwYMtNMBgH1xdYnHVu3e+5KlrR254nTZSaDcWceeLGv+ug7g0owrSl9JNwGyMNNe8dnkpT7yMXtMsuOLGmFQsGOIQEpZo7sMhMTE9JBOHKRVyypWwISiOy0N8LQ+WHEhQwBzdkn2yWFVcJqupIUglHYjCELnXGhK+2aq04e36Ownc2BRSGAW1tbwo4SYtYYAic7t/EdekBGdJMdmxjDw8P2vxX6qNSxuanJOj+oeLD39PS0zmX5L4C7UaBcSGaMi1fcvL4ceEgRlIcUTY7R+35s3nouc4FOCjPGmDAe7qZ65y9YuszmwNgxhmwSzv54X8D/AQ5869L0w2KNAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;App Engine 資訊主頁-版本&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/menu-app-engine-version-6daa8ac94d4c77452bdac390be27f903-9a39c.png&quot;
+        srcset=&quot;/blog/static/menu-app-engine-version-6daa8ac94d4c77452bdac390be27f903-c560e.png 148w,
+/blog/static/menu-app-engine-version-6daa8ac94d4c77452bdac390be27f903-4aef1.png 295w,
+/blog/static/menu-app-engine-version-6daa8ac94d4c77452bdac390be27f903-9a39c.png 381w&quot;
+        sizes=&quot;(max-width: 381px) 100vw, 381px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt; 選取狀態為 &lt;code class=&quot;language-text&quot;&gt;Serving&lt;/code&gt; 的版本，點選上方的停止， 網站就不會繼續運行了。 &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/stop-versions-089b872d01ba18cfd9c9879569174dcf-334a7.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 57.24275724275725%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsSAAALEgHS3X78AAABmUlEQVQoz52Q227VMBBF/X+8gYCegvgYXqCl0I/jCakSqtrcfcmxEzu+ZTM26KhApQosLXkyszMz2+z5hw7nVz3efhlwoPvwqcOryx7vrge8vuzw7H2Llxcd3lz3OLvqcPjc1fshJXdOvPjYgt02I5pe4L6dwNWC2Wy46yQGYcCPEd/7DYPyVFvRCY9eeoijIzaMcgWfHe65rzVlApiSE2YlsC4aOQWkGGBWD70GLC5B24x1KyQYio39GVv/66aacZm0uebYMClwqWFdOJFShPeOBkQAGfuegL3E+4lSq+SIvUCaArttZzSjgdKubmVspA0D2kFBkM1JknVl8fVG4tudw02zQZDNkWvI2WLgx6op36UHWRYQgmNZDGKMhMdKVnuxEa6+Y6FXGQ0PRMSoAqTJoHngOtV4Io2gmClFmwgBYwxCiERATPRey0JDVmybr5RhpVbwoQxOZHfH5ilHsSNN+Z9xzlFYqEEVe0/CjKfPTm+2/5Vl0zShbGmt/a1hEf8PrNgtPLbhYxs8dZiUElrrU7M/G/4rPwCx1kJsZCFT0AAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;停用版本&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/stop-versions-089b872d01ba18cfd9c9879569174dcf-fb8a0.png&quot;
+        srcset=&quot;/blog/static/stop-versions-089b872d01ba18cfd9c9879569174dcf-1a291.png 148w,
+/blog/static/stop-versions-089b872d01ba18cfd9c9879569174dcf-2bc4a.png 295w,
+/blog/static/stop-versions-089b872d01ba18cfd9c9879569174dcf-fb8a0.png 590w,
+/blog/static/stop-versions-089b872d01ba18cfd9c9879569174dcf-526de.png 885w,
+/blog/static/stop-versions-089b872d01ba18cfd9c9879569174dcf-334a7.png 1001w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h2&gt;總結&lt;/h2&gt;
+&lt;p&gt;本次提到的指令：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;gcloud config list&lt;/code&gt;：列出目前啟用的設定，包含帳號、專案等等。&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;gcloud config set project [PROJECT_ID]&lt;/code&gt;：切換專案。&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;gcloud app deploy&lt;/code&gt;：部署。&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;gcloud app browse&lt;/code&gt;：瀏覽。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;參考資源&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://cloud.google.com/shell/docs/features&quot;&gt;https://cloud.google.com/shell/docs/features&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://cloud.google.com/appengine/docs/flexible/nodejs/quickstart&quot;&gt;https://cloud.google.com/appengine/docs/flexible/nodejs/quickstart&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://cloud.google.com/sdk/docs/quickstart-mac-os-x&quot;&gt;https://cloud.google.com/sdk/docs/quickstart-mac-os-x&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://cloud.google.com/sdk/docs/managing-configurations&quot;&gt;https://cloud.google.com/sdk/docs/managing-configurations&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[使用 Chrome 內建截圖工具擷取網頁畫面]]></title><description><![CDATA[Chrome 59 DevTools 中釋出 Full-page screenshots，不用額外安裝擴充功能或截圖軟體，直接使用內建的截圖功能擷取網頁畫面。 Full-page screenshots 使用方法 DevTools 提供了兩種  截圖方式。 Capture…]]></description><link>https://jasperjn.github.io/blog//2017/07/17/chrome-build-in-screenshot/</link><guid isPermaLink="false">https://jasperjn.github.io/blog//2017/07/17/chrome-build-in-screenshot/</guid><pubDate>Mon, 17 Jul 2017 10:37:25 GMT</pubDate><content:encoded>&lt;p&gt;Chrome 59 DevTools 中釋出 Full-page screenshots，不用額外安裝擴充功能或截圖軟體，直接使用內建的截圖功能擷取網頁畫面。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2&gt;Full-page screenshots 使用方法&lt;/h2&gt;
+&lt;p&gt;DevTools 提供了兩種  截圖方式。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Capture screenshot：擷取可視區域 (viewport)。&lt;/li&gt;
+&lt;li&gt;Capture full size screenshot：擷取整個網頁 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;使用步驟&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;點選左下角的 Toggle device toolbar。&lt;/li&gt;
+&lt;li&gt; 點選右上角的 More options。&lt;/li&gt;
+&lt;li&gt;Capture screenshot：擷取可視區域。&lt;/li&gt;
+&lt;li&gt;Capture full size screenshot：擷取整個網頁。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/screenshot-steps-d48b89e47f54bcd48c3f9eb325c06f42-1e188.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 85.3852967227635%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAAAsSAAALEgHS3X78AAACfklEQVQ4y6VUy27TQBT1L0GbNNB12XXBKlmU34AtsGcBgi1sUAULVFHBBqlJm0cfUiuoqMiCSJHSJqGJHedhezzjx+HeSVzcpu2GkY48M75z7rlzj20s5+5g9eEq1tYeIZ/Po1AoYGXlATLZ3BRLuYv5YnYJdxcyUyxmsKCRxUImq9f37i/DKG3voFKuoFaraezt7uLg4AB7+/uoVMrY2toCxxRLJRSLJVSqNUIVVUK5XEZJ7xdR3dnB9tcvMDA3YkRRTM8IQRDSw9d7yTtAEUK9clwHzWYT3W4XzmQC4bowfN9HGp4ggtjHtyOBJ+98PH3v49m60ni+LvH4rcDmrksxCufdPzg6PMTx8THa7Q7s4RCGlBJp+L7UKio/BV599vBm08PLDVfPX28KvPgkUPw+JbQaDfw6OUG9Xker1cJgMIChlEICJlSKiRWiwEMcjKlkhyqcUBJB4PIpYTyNGQ0sTdRut9Hv9zEajeYJOZDnXLrr+VB0j0qFkCqgdwGtIx2jkwcB3XOQEqOuJwxI5Wgi0euZ1KBorm3J9fw7Iy84biQcjBU63XNYlgnHcTRxHE+7LYTQDUwTJpgn5Ln04YhYm8QjK3ACbZoZYbrEtLobFEqEYQiTLvkHWWLsCtheQAm4GfGs5FsIr0qWpI7PNRu/sfHhIxxqDEP7czauKrxUsryiLj13nQnG4zHZYYgRmda2bUzoi7hOWbJnKM+FpEtWgboUyAdPT0/R6XRwdnZ2MWdwk+Yrm9nGOu/Dtiz0+hb6pkUqBuR4WxvVon2GaZoEC0NSyWSczKVmJeA1gyswBH1qYRTpDPwzYHswOBs3J7HLbUhKZjtd87f5v/EXVizoiEChKTUAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Full-page screenshots 使用方法&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/screenshot-steps-d48b89e47f54bcd48c3f9eb325c06f42-fb8a0.png&quot;
+        srcset=&quot;/blog/static/screenshot-steps-d48b89e47f54bcd48c3f9eb325c06f42-1a291.png 148w,
+/blog/static/screenshot-steps-d48b89e47f54bcd48c3f9eb325c06f42-2bc4a.png 295w,
+/blog/static/screenshot-steps-d48b89e47f54bcd48c3f9eb325c06f42-fb8a0.png 590w,
+/blog/static/screenshot-steps-d48b89e47f54bcd48c3f9eb325c06f42-526de.png 885w,
+/blog/static/screenshot-steps-d48b89e47f54bcd48c3f9eb325c06f42-1e188.png 1129w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;也可以直接透過 Command Menu (&lt;kbd&gt;cmd&lt;/kbd&gt;+&lt;kbd&gt;shift&lt;/kbd&gt;+&lt;kbd&gt;p&lt;/kbd&gt;) 搜尋關鍵字 screenshot  執行截圖功能，不需開啟 device toolbar。
+
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/command-menu-screenshot-895ad85302104a9d1d0040cc1db80337-d6552.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 93.89558232931726%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAYAAACQjC21AAAACXBIWXMAAAsSAAALEgHS3X78AAADp0lEQVQ4y62Uz2tcVRTHHygImsakRRdFQZAupyKaLFps/ZH0H6jiUhDajiBuRK1pMjEzqUmLtSFJF0GyaQsJCTOaGKWI2biRFpPYhZmZDDM2TaaZZDI/369777vvfj33TSdapN3ogQ/fc++b+c6Zc899xsHH29pffKH9s6PHjp7r7j7R09XV3dPR0dnT1n6gp6W17QGe2vd0wF7e0hroky2tn7ftP9B/8LnnQ8Y7J98+/MmnZ/H15cu4Mj6O0dFRjBEXLl5ENBYLGIhGEY3GEIsNIhKJ4FxvL/r6IpT3B6rRz06dPv2RkUgkQlVTOJwLCSjBORNSKmHZTJTKVcG4J5RSAsAeOpp7UkqdM8qxtLR0xojH4yHTrItyqQTTspTrOqpmOmqnZKnd3aKqVqqKvqR8399THVqbOYXUhsvLK2Fjbm4uVKvVRLlcBuecDF3Yjku5B9+X8HzAV1S7Ug+DniIwTKVS4aBC27ZFoVAAoUpUabVaxXfT01jL5FCxOaqmg0fEnuHq6mrYmJmZCVFVIp/PI5vNKa2WZWFrcwOWaYGaCkZVa+WM63/RyJtrxqnxIjBMJpNhY5YMHW1IBndyWerbLhzHRqVex065hEJxhyhie7eIUq0Ky3VgOhobDnPAuKuYYH8bzszMhlzHEZvbJWQ3tuhALLguw+17Pn5d93FrQ+HmXb8B5cE62FNYvgf8vgVFKoscSGvDeDwRsi1L5IsV7NQcZdGv0ynj1KTAsUGOExcEuoeb8AfoGgpUHRngcnQRWM8mG6dMhyCK29u6V4qzhuF7EwKd/RzHz3O8NvhwXj/P1cu9Qsa+B/J3yHB+fj5UqVQEjQ4cl+k5DAzf/8bDkajAW8Me3vhS/JshgTeHPHQNe6rzC08O/Qhs/kmGCwsLQYU1arieQ85c1C2Gd8c4Dp910NnnoCPCgmq1vtqE9l/ptdHRZ6tDH1uy71tgaz0dNqampqjCsqjTqVaqdWWSlmsWJmZ/w+jkDXw18QPGp2/h+k85TM7/gSs3shih/NLVXxAZW0DPpYT6YOCqnP45g7X0Wti4du16UKGeq7ppKcYYHNvB3Uwedr0UINwalGcDGt+lMXabs6znmgZb3r96y43B9jyP/WPipef5Mpcqy0JhR24VtiVdRem6XFKPKW/AhSc96d8neFEgk8mc0W+bl/A/RS6X+9AYGRk5RJf6Zjqdvk2saGi9kkqmGvoImp8nlonk4uLiSYPiMWI/8SzxzH/kib8A1G6eUvZt4FkAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Command Menu screenshot&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/command-menu-screenshot-895ad85302104a9d1d0040cc1db80337-fb8a0.png&quot;
+        srcset=&quot;/blog/static/command-menu-screenshot-895ad85302104a9d1d0040cc1db80337-1a291.png 148w,
+/blog/static/command-menu-screenshot-895ad85302104a9d1d0040cc1db80337-2bc4a.png 295w,
+/blog/static/command-menu-screenshot-895ad85302104a9d1d0040cc1db80337-fb8a0.png 590w,
+/blog/static/command-menu-screenshot-895ad85302104a9d1d0040cc1db80337-526de.png 885w,
+/blog/static/command-menu-screenshot-895ad85302104a9d1d0040cc1db80337-fa2eb.png 1180w,
+/blog/static/command-menu-screenshot-895ad85302104a9d1d0040cc1db80337-d6552.png 1245w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;完整的操作方式可以參考  官方的影片：&lt;/p&gt;
+&lt;div&gt;
+          &lt;div
+            class=&quot;gatsby-resp-iframe-wrapper&quot;
+            style=&quot;padding-bottom: 56.25%; position: relative; height: 0; overflow: hidden;margin-bottom: 1.0725rem&quot;
+          &gt;
+            &lt;iframe src=&quot;https://www.youtube.com/embed/r_6_9eFPhxI&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen style=&quot;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          &quot;&gt;&lt;/iframe&gt;
+          &lt;/div&gt;
+          &lt;/div&gt;
+&lt;h2&gt;參考資料&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.google.com/web/updates/2017/04/devtools-release-notes&quot;&gt;What’s New In DevTools (Chrome 59)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[VScode 無法安裝擴充功能]]></title><description><![CDATA[更新到 1.12 版後發生無法安裝擴充功能的問題。試圖安裝 tslint 時，點了 Install 之後按鈕變成 Installing 之後又變回 Install 無限輪迴。用 Developer Tools 擷取到的錯誤訊息如下： 在官方 GitHub…]]></description><link>https://jasperjn.github.io/blog//2017/05/11/cannot-install-extensions-on-vscode/</link><guid isPermaLink="false">https://jasperjn.github.io/blog//2017/05/11/cannot-install-extensions-on-vscode/</guid><pubDate>Thu, 11 May 2017 14:07:13 GMT</pubDate><content:encoded>&lt;p&gt;更新到 1.12 版後發生無法安裝擴充功能的問題。試圖安裝 tslint 時，點了 Install 之後按鈕變成 Installing 之後又變回 Install 無限輪迴。用 Developer Tools 擷取到的錯誤訊息如下：&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/enoent-aeaf6a41c5196504f81d3a2390e08d59-47e02.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 51.836158192090394%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsSAAALEgHS3X78AAACT0lEQVQoz32SS2/TQBCA/UeQOMB/aUUr+AucWSRAcAxICHFATpT0EhoVtZV65tKeoY1SCBUkqGnSJrXzcB42iVO/Y3vXu8PEVKLiwMifxrOWP+/MWmqUP905b33PNppn8sVFW240zuTG6ancbDZTWq2W3Ol0ZEVRZVVV0/t2uy2r17WiKClqp5OvVqt3pcrR0XocR7AMyhIIwxiSBHMUQRzHcDOWz/8X5XL5gfS1erJy2dW4bvyiuq5Tz3UocEHDIKBRuKA0junSxXlCrywbM0/rm+CHY8uy4PjL8ZpUq/1YHY7G0B9oQun2xVh3QJ940DgfQrunw8gwwfZi8AMKumFAsFgAStMuUhgTjuNw3/ehUqmsST/r9VSookxRusKyXYgiBgNtBLbjIQ7KFhAEIcx0E8JFmIoYY8D+ZMFYwq9bXpfqtdrqeDyBHu5woA2F57nAcHZza4aYYDlXELEQgtCHwAzAN6bAceZ/iYWIo1T4+fAQhfXaijYcgqL2xKWiCseyhe/OxdTQhG2aYmG7gnqBwJkKZ+YJ13IEoyjhHEnwSgRgsRQeHBykLa+MJxPoa8Ok1x8kruPyyA+5OZ9y13M4jSjHqeNmIm7b3vLFf1kePRMCYH8fhScn3+7hCcNwNIGZOQfbtsHD2bmuh79QlM5rGYxRMKYqrhm4ZoIQ8xSegjVYKPx4X8pkMrcKGxukVCqRra0PJJ/Pk2wuSwqFAsnlciSbzZJisUg2S0Xy9t0j8vrNQ/J+8wnZ3X1Btneekx1ke+cZ2dvLPH756unt39CDua0D8nxNAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;ENOENT&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/enoent-aeaf6a41c5196504f81d3a2390e08d59-fb8a0.png&quot;
+        srcset=&quot;/blog/static/enoent-aeaf6a41c5196504f81d3a2390e08d59-1a291.png 148w,
+/blog/static/enoent-aeaf6a41c5196504f81d3a2390e08d59-2bc4a.png 295w,
+/blog/static/enoent-aeaf6a41c5196504f81d3a2390e08d59-fb8a0.png 590w,
+/blog/static/enoent-aeaf6a41c5196504f81d3a2390e08d59-526de.png 885w,
+/blog/static/enoent-aeaf6a41c5196504f81d3a2390e08d59-fa2eb.png 1180w,
+/blog/static/enoent-aeaf6a41c5196504f81d3a2390e08d59-47e02.png 1416w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;在官方 GitHub 有人發了類似的 Issue &lt;a href=&quot;https://github.com/Microsoft/vscode/issues/25151&quot;&gt;#25151&lt;/a&gt;。解決方式是到擴充功能安裝的目錄把無法安裝的擴充功能目錄整個刪除，就可以正常安裝了。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/extensions-folder-270c447d0106cfabfb949eec02b747c2-59197.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 64.85260770975057%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAAAsSAAALEgHS3X78AAACgklEQVQ4y6WTzW7TQBDHI4TaAw9Db0g8RI3okQNtkya9NlLfB3HlDBzKxeJSSNMG+pHYjb32etdO4nzajRPH3hnWbhKK2hsjjUbe2f15/zM7hYK0W/XLq/PLkx2D0G2zbSjUogq1meJRRznTqXJ61lDOa3VFa2oKo0xxbCePHuMKd/g2Z/ytTezXhaU9u2xcqONggJZlY+1HDV3u5u53e8g7fbRsB29vTTQMC/t+H4eDIfZkrtv10Zff8TxGo23+lKyNDLh5SZg6jeY4i6IkjucijGaizTxhW5YYj8fiLpgIox+KluUIz+XCcRzh+764cnrCtOxkEcfY8/0M+CIDbmjUVefxAqMoShERFosEFkkKSZJAkgpAEGBOYmjoBNpaC0yTgATCaDyB2WyWncHBYPAX2MqBMWZJAMAkWeDKYBlpEGOTOEgtgpxzHI1GOJ3eZakVsLYGtilTgzDE4XCYSokYhncohMhBAu6RZBLjeauNlmmibdO8dlLR00DGuDqfz+UmP+33+5hBpdz7Gy6B2Q2vDYKUGMgdimEwkZUQWf4xkNhUzSByMZWey0nT9J8bmuMY6xpFTTOxqdvodke5iieBdZ2oo0kgn4SfBkEAE1nslYl7IlzwKXz4ZsKnEx0+fm3D59MOpHnD4HFTNMdTZTflH9NMp9yYwrIfa2fTFDSbA6MUGHNgNByucjlQKlwDN+uNX997ssi2fNie6+WPOosdr4OUUrQIwSvdxIvf19i8uUFd0/MhcF0XGWMYTSMkJqmvgM/f7RbfFEvl41KxdFQ+KFcfenG/WN19v1fd29uvFoulaqVyKNcrD/ccHVYOj2XcySelclBej+B/emHr5VbhD9C29oAOuwgWAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;擴充功能目錄&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/extensions-folder-270c447d0106cfabfb949eec02b747c2-fb8a0.png&quot;
+        srcset=&quot;/blog/static/extensions-folder-270c447d0106cfabfb949eec02b747c2-1a291.png 148w,
+/blog/static/extensions-folder-270c447d0106cfabfb949eec02b747c2-2bc4a.png 295w,
+/blog/static/extensions-folder-270c447d0106cfabfb949eec02b747c2-fb8a0.png 590w,
+/blog/static/extensions-folder-270c447d0106cfabfb949eec02b747c2-59197.png 882w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;如圖所示，把 &lt;code class=&quot;language-text&quot;&gt;eg2.tslint-0.14.0&lt;/code&gt; 目錄刪掉，然後重新安裝 tslint。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[修改 git init 預設範本]]></title><description><![CDATA[ 指令用來將工作區加入 git 版本控管，其實就是在工作目錄底下幫我們產生   資料夾。如果想修改預設產生   資料夾內的檔案或增加內容，可以參考接下來的說明。 使用 Template Directory 根據 官方文件 指出，執行   時可以多帶   參數指定 git…]]></description><link>https://jasperjn.github.io/blog//2017/04/14/git-template/</link><guid isPermaLink="false">https://jasperjn.github.io/blog//2017/04/14/git-template/</guid><pubDate>Fri, 14 Apr 2017 17:20:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;git init&lt;/code&gt; 指令用來將工作區加入 git 版本控管，其實就是在工作目錄底下幫我們產生 &lt;code class=&quot;language-text&quot;&gt;.git&lt;/code&gt; 資料夾。如果想修改預設產生 &lt;code class=&quot;language-text&quot;&gt;.git&lt;/code&gt; 資料夾內的檔案或增加內容，可以參考接下來的說明。&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;h2&gt;使用 Template Directory&lt;/h2&gt;
+&lt;p&gt;根據&lt;a href=&quot;https://git-scm.com/docs/git-init#_template_directory&quot;&gt;官方文件&lt;/a&gt;指出，執行 &lt;code class=&quot;language-text&quot;&gt;git init&lt;/code&gt; 時可以多帶 &lt;code class=&quot;language-text&quot;&gt;--template&lt;/code&gt; 參數指定 git 要使用的範本目錄。也就是說 &lt;code class=&quot;language-text&quot;&gt;.git&lt;/code&gt; 裡面的結構是根據範本來產生的，而範本可以自訂。預設範本路徑位於 &lt;code class=&quot;language-text&quot;&gt;/usr/share/git-core/templates&lt;/code&gt;，但我卻是在 &lt;code class=&quot;language-text&quot;&gt;/usr/local/git/share/git-core/templates&lt;/code&gt; 找到這個目錄。推測是安裝 Source Tree 或是 Xcode Command Line Tools 的關係路徑改變了。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/templates-9c926dc33d43d05cff75754bd2c9c45c-59197.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 62.13151927437642%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAAsSAAALEgHS3X78AAAB6UlEQVQoz6WS227aQBCGaS6SXLaXSH2P9inii7xX1CehlZoANTTgBVWFpgqFNFGhET6sT9iWTaBIXe94uuvaQKX0KiP9nlnvP9+s5a1URMx79Vfj28tT3aQn+v1ccaituLareCLPLVcZ3kwV426kLANb2cSukixsxbGo8DmKZVgn1KSnxtx4XSniYDb51v21SdDQTRwOvqBlUjQNEx3bQdf1cDI18ep6iuNbC+/uA9RphP4ixIW/wCiMkDOOs+mMSJYEHlnU1lAEMJbSaAm9m5/g2hSWDytYxhF8tx6gM1mB+jWBt59i+PxjDaYXgD7XgXOeyl7btnuCdZgDKaU5UASPNml2rXsZsN+ZWGccQGSe1/uaulEWBoGsuWx0HGcHHI1GmpiEcRzz1XqNmbBl4iEFAJiKPcnlhVjKkXHITyA8OdDzvB1wPB5raZpikiScMVYat1kO238nh5QDS6Dv+ztgFEXbTy7NZfwPKLV/wn+AQRBo5aZs3k5/BFiu9075KLDztwGYJOamQhnIH5kTtxIwXoBkZgVQ2wLDMBziE0Ncm6sSeFir1c4+qK3BRbvTvWhdkvdqm4ianIt8rn4kjVabvGuopFGvE40Qomnavrr9fn/QbDbf5MCj4+Nnongu9PKJelGtVg/+AJHU2wVIKstpAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;git template path&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/templates-9c926dc33d43d05cff75754bd2c9c45c-fb8a0.png&quot;
+        srcset=&quot;/blog/static/templates-9c926dc33d43d05cff75754bd2c9c45c-1a291.png 148w,
+/blog/static/templates-9c926dc33d43d05cff75754bd2c9c45c-2bc4a.png 295w,
+/blog/static/templates-9c926dc33d43d05cff75754bd2c9c45c-fb8a0.png 590w,
+/blog/static/templates-9c926dc33d43d05cff75754bd2c9c45c-59197.png 882w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h2&gt;修改範本內容&lt;/h2&gt;
+&lt;p&gt;比較常使用的情境是，希望在 &lt;code class=&quot;language-text&quot;&gt;git init&lt;/code&gt; 時設定 lcoal config 而不是採用 global config 內的設定。或是比較進階的想套上已經寫好的 &lt;a href=&quot;https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks&quot;&gt;Hook&lt;/a&gt;。都可以修改預設的範本來幫我們產生，省去每次產生新的 git repository 時要一直複製貼上。例如我想在剛產生的 git repository 用另外的身份。可以在剛剛的範本目錄中新增一個名稱叫 &lt;code class=&quot;language-text&quot;&gt;config&lt;/code&gt; 的檔案，寫上想要使用的 &lt;code class=&quot;language-text&quot;&gt;user.name&lt;/code&gt; 與 &lt;code class=&quot;language-text&quot;&gt;user.email&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;[user]
+        name = ANOTHER_USER_NAME
+        email = ANOTHER_USER_NAME@domain.com&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;這樣每次透過 &lt;code class=&quot;language-text&quot;&gt;git init&lt;/code&gt; 產生的 &lt;code class=&quot;language-text&quot;&gt;.git&lt;/code&gt; 目錄底下便會有這個設定檔，而不是採用 global &lt;code class=&quot;language-text&quot;&gt;.gitconfig&lt;/code&gt; 的設定。如果不使用範本，相當於每次初始化 repository 時要重複下面的步驟&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; init
+&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; config user.name &lt;span class=&quot;token string&quot;&gt;&quot;ANOTHER_USER_NAME&quot;&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; config user.email &lt;span class=&quot;token string&quot;&gt;&quot;ANOTHER_USER_NAME@domain.com&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;善用 template 可以省去重複的步驟，特別是同個環境但不同的 repository 需要各自的設定時，可以自訂對應的 template 再透過 &lt;code class=&quot;language-text&quot;&gt;--template&lt;/code&gt; 參數快速幫我們產生對應的 git 範本。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Visual Studio Code v1.11 更新]]></title><description><![CDATA[1.11 版本更新重點整理 客製化工作區主題樣式 以後 VS Code…]]></description><link>https://jasperjn.github.io/blog//2017/04/06/visual-studio-code-v1-11-updates/</link><guid isPermaLink="false">https://jasperjn.github.io/blog//2017/04/06/visual-studio-code-v1-11-updates/</guid><pubDate>Thu, 06 Apr 2017 16:52:13 GMT</pubDate><content:encoded>&lt;p&gt;1.11 版本更新重點整理&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;h2&gt;客製化工作區主題樣式&lt;/h2&gt;
+&lt;p&gt;以後 VS Code 編輯器全部的顏色樣式都可以透過設定檔改變&lt;/p&gt;
+&lt;h2&gt;全新的快捷鍵編輯器&lt;/h2&gt;
+&lt;p&gt;習慣使用快捷鍵可以大大的提升效率。全新的快捷鍵編輯器讓你一個字都不用打，按按滑鼠就可以幫你產生設定檔。透過新的快捷鍵編輯器可以更清楚看到目前的快捷鍵設定是 &lt;code class=&quot;language-text&quot;&gt;Default&lt;/code&gt;（預設值）還是 &lt;code class=&quot;language-text&quot;&gt;User&lt;/code&gt;（自定）。當然還是可以直接修改 &lt;code class=&quot;language-text&quot;&gt;keyboinding.json&lt;/code&gt; 檔案設定&lt;/p&gt;
+&lt;h2&gt;搜尋速度加快&lt;/h2&gt;
+&lt;p&gt;搜尋預設會參考 &lt;code class=&quot;language-text&quot;&gt;.gitignore&lt;/code&gt; 設定，不搜尋不加入版本控管的檔案&lt;/p&gt;
+&lt;p&gt;多了兩個 icon 在搜尋時可以選擇要不要套用 &lt;code class=&quot;language-text&quot;&gt;files.exclude&lt;/code&gt; &lt;code class=&quot;language-text&quot;&gt;search.exclude&lt;/code&gt; 設定&lt;/p&gt;
+&lt;h2&gt;最大化 Panel&lt;/h2&gt;
+&lt;p&gt;最大化 Panel 視窗，收合會自動恢復上一次開啟的大小&lt;/p&gt;
+&lt;h2&gt;保持開啟已刪除的檔案&lt;/h2&gt;
+&lt;p&gt;透過 &lt;code class=&quot;language-text&quot;&gt;workbench.editor.closeOnFileDelete&lt;/code&gt; 設定檔案被刪除時，要不要關閉該檔案已開啟的 editor&lt;/p&gt;
+&lt;h2&gt;合併編輯群組&lt;/h2&gt;
+&lt;p&gt;透過 &lt;code class=&quot;language-text&quot;&gt;workbench.action.joinTwoGroups&lt;/code&gt; 指令可以把目前編輯群組往左邊的編輯群組合併&lt;/p&gt;
+&lt;h2&gt;視窗巡覽&lt;/h2&gt;
+&lt;p&gt;透過 &lt;code class=&quot;language-text&quot;&gt;workbench.action.navigateLeft&lt;/code&gt; &lt;code class=&quot;language-text&quot;&gt;workbench.action.navigateDown&lt;/code&gt; 切換目前 focus 的區域&lt;/p&gt;
+&lt;h2&gt;快捷鍵調整視窗大小&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;workbench.action.increaseViewSize&lt;/code&gt; 放大 &lt;code class=&quot;language-text&quot;&gt;workbench.action.decreaseViewSize&lt;/code&gt; 縮小。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;個人比較常用 &lt;code class=&quot;language-text&quot;&gt;workbench.action.maximizeEditor&lt;/code&gt; 搭配 &lt;code class=&quot;language-text&quot;&gt;workbench.action.focusFirstEditorGroup&lt;/code&gt; &lt;code class=&quot;language-text&quot;&gt;workbench.action.focusSecondEditorGroup&lt;/code&gt; &lt;code class=&quot;language-text&quot;&gt;workbench.action.focusThirdEditorGroup&lt;/code&gt; 來最大化目前編輯的視窗&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;已開啟的檔案不再其他編輯群組開啟&lt;/h2&gt;
+&lt;p&gt;透過 &lt;code class=&quot;language-text&quot;&gt;workbench.editor.revealIfOpen&lt;/code&gt; 設定如果要開啟的檔案已在其他編輯群組開啟了，會自動開啟原本已開啟的編輯視窗。也就是同個檔案不會在其他編輯群組出現。建議可以設成 &lt;code class=&quot;language-text&quot;&gt;true&lt;/code&gt;，減少相同檔案的 tab 數量也可以知道檔案是看到哪一個段落，不用開新的編輯視窗重頭找。&lt;/p&gt;
+&lt;h2&gt;文字拖曳改進&lt;/h2&gt;
+&lt;p&gt;拖曳文字時按著 &lt;kbd&gt;Option&lt;/kbd&gt; (macOS) &lt;kbd&gt;Ctrl&lt;/kbd&gt; (Windows) &lt;kbd&gt;Alt&lt;/kbd&gt; (Linux) 可以複製拖曳的文字，而不是搬動他&lt;/p&gt;
+&lt;h2&gt;關閉選取文字高亮提示&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;editor.occurrencesHighlight&lt;/code&gt; 設定顯示/關閉選取文字出現高亮提示&lt;/p&gt;
+&lt;h2&gt;自動猜測檔案編碼&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;files.autoGuessEncoding&lt;/code&gt; 設定自動猜測檔案編碼，有可能會猜錯。如果編碼不是 &lt;strong&gt;UTF-8&lt;/strong&gt; 建議還是從 &lt;code class=&quot;language-text&quot;&gt;files.encoding&lt;/code&gt; 設定下手&lt;/p&gt;
+&lt;h2&gt;自動完成模糊比對&lt;/h2&gt;
+&lt;p&gt;改進了自動完成建議的模糊比對&lt;/p&gt;
+&lt;h2&gt;註解內的 IntelliSense&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;editor.quickSuggestions&lt;/code&gt; 設定要不要在註解或字串裡面出現自動完成提示&lt;/p&gt;
+&lt;h2&gt;設定新增檔案預設選用的語言&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;files.defaultLanguage&lt;/code&gt; 設定新增檔案時套用的語言模式，不用每次新增檔案都重選。建議設定成最常用的語言，前端工程師立馬設定成 &lt;code class=&quot;language-text&quot;&gt;javascript&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;Terminal&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;改進顯示鏈結方式。改成用 &lt;kbd&gt;Cmd&lt;/kbd&gt; 或 &lt;kbd&gt;Ctrl&lt;/kbd&gt; 加滑鼠點擊才打開鏈結。&lt;/li&gt;
+&lt;li&gt;Windows 第一次開啟 Terminal 時，會自動偵測有哪些 shell 可以用給你選要用哪一個&lt;/li&gt;
+&lt;li&gt;by 工作區設定 shell 加回來，多了提示才採用設定&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;terminal.integrated.confirmOnExit&lt;/code&gt; 設定離開有 Terminal 在跑的視窗時要不要跳提示&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Visual Studio Code 使用 Typescript]]></title><description><![CDATA[在 Visual Studio Code 開發 Typescript 應用 初始化 npm 安裝 typescript typings webpack typescript: typescript compiler typings: typescript 定義檔 (.d.ts…]]></description><link>https://jasperjn.github.io/blog//2016/08/17/visual-studio-code-typescript/</link><guid isPermaLink="false">https://jasperjn.github.io/blog//2016/08/17/visual-studio-code-typescript/</guid><pubDate>Wed, 17 Aug 2016 11:50:56 GMT</pubDate><content:encoded>&lt;p&gt;在 Visual Studio Code 開發 Typescript 應用&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;p&gt;初始化 npm&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; init&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;安裝 typescript typings webpack&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -g typescript typings webpack&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;typescript: typescript compiler&lt;/li&gt;
+&lt;li&gt;typings: typescript 定義檔 (.d.ts) 套件管理員&lt;/li&gt;
+&lt;li&gt;webpack: 靜態檔案打包工具，可以將網站多個 js 把打包成單一 js&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;tsc --init &lt;span class=&quot;token comment&quot;&gt;# 產生 tsconfig.json (TypeScript 設定檔)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[如何製作 VS Code Extension]]></title><description><![CDATA[前言 Visual Studio Code  是 Microsoft 開發的 Open Source、跨平台的的程式碼編輯器。主打輕量且高擴充性。Visual Studio 一貫有的 IntelliSensee、支援 Typescript、整合 Git…]]></description><link>https://jasperjn.github.io/blog//2016/08/05/first-vscode-extension/</link><guid isPermaLink="false">https://jasperjn.github.io/blog//2016/08/05/first-vscode-extension/</guid><pubDate>Fri, 05 Aug 2016 15:55:00 GMT</pubDate><content:encoded>&lt;h2&gt;前言&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://code.visualstudio.com/&quot;&gt;Visual Studio Code&lt;/a&gt; 是 Microsoft 開發的 Open Source、跨平台的的程式碼編輯器。主打輕量且高擴充性。Visual Studio 一貫有的 IntelliSensee、支援 Typescript、整合 Git 等功能強大又快速的編輯器，非常適合前端工程師使用。覺得還不夠嗎？自己去找吧！&lt;a href=&quot;https://marketplace.visualstudio.com/VSCode&quot;&gt;擴充功能市集&lt;/a&gt;集合了許多開發者們分享的擴充功能。如果還是找不到自己想要的功能，那就是試試動手做一個吧！&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;h2&gt;安裝 VS Code&lt;/h2&gt;
+&lt;p&gt;前往&lt;a href=&quot;https://code.visualstudio.com&quot;&gt;官方網站&lt;/a&gt;首頁即有下載連結&lt;/p&gt;
+&lt;h2&gt;Let’s Do It&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;安裝 yo 之前要先安裝 Git 與 Node.js&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;安裝 yo 與 vscode extension generator&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -g yo generator-code&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;安裝完成後執行 &lt;code class=&quot;language-text&quot;&gt;yo code&lt;/code&gt; 會開啟互動功能幫助我們建置專案模板&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;yo code&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/yo-code-d10e1cba8beae7d5aac4fb4aeb13d3dc-74bd4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 500px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 60%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAIAAADtbgqsAAAACXBIWXMAAAsTAAALEwEAmpwYAAABcUlEQVQoz41S2ZKCMBD0S3ZRScgNJMgRbvBALJT1/z9mR92H3dUHqzpTk1R60tOThfJpUSahli76BCDseGT1JhYm8pu2yOxmEwc2j7VRUAJ7y394TabM5QKHRupIQeIHTBtpImWM0lpCrVAL2ArpPZdYgE6pqKKuz7GQRAgvs9F0PnZdVTf5dtcMQ992JXT3ggxHQUjsRpSpVMoLAg5PlVUG/Mt8Go499JJlURDyl+SVVCixoqhBm6sUlYpwjiGCVADnSEIU+AUZlpA4SVAcY9/HCC/R/RK08wBw7tF5thDIS85cxZ1AOIq5jK6I5wAoWYGXAELXf5M1oZC7d7d9tv2aq8O+naa0rXfTeLhem3Gotm1d26YrklSDc11fpZmxdnOzwMZ5kUChBZOkPx2rXdsO+3bfp1Web7u8q3ViXPTxUPhb/yP5kc04mufxNO4u5+N8GadpSJOQ0jV554fB66AKZlM1edOVt5EGDEbwzvf8Bgvaf84NlzYVAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;yo code&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/yo-code-d10e1cba8beae7d5aac4fb4aeb13d3dc-74bd4.png&quot;
+        srcset=&quot;/blog/static/yo-code-d10e1cba8beae7d5aac4fb4aeb13d3dc-309d6.png 148w,
+/blog/static/yo-code-d10e1cba8beae7d5aac4fb4aeb13d3dc-fe30e.png 295w,
+/blog/static/yo-code-d10e1cba8beae7d5aac4fb4aeb13d3dc-74bd4.png 500w&quot;
+        sizes=&quot;(max-width: 500px) 100vw, 500px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;選擇 New Extension (TypeScript) 之後輸入需要的資訊之後就會幫我們建立起擴充功能的專案結構&lt;/p&gt;
+&lt;h2&gt;完成&lt;/h2&gt;
+&lt;p&gt;你的第一個擴充功能已經完成了，按下 &lt;kbd&gt;F5&lt;/kbd&gt; 會新開一個進入實驗模式的 VS Code 視窗 (Extension Development Host)，預設已經幫我們裝上目前在開發中的擴充功能，方便我們測試。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[自己的 blog 自己架 - 使用 hexo]]></title><description><![CDATA[使用 hexo 建立 blog 前言 本篇會介紹使用  hexo  搭配  GitHub Pages  建立自己的 blog 安裝 hexo 安裝 hexo 前置作業需要先安裝 Node.js、Git 安裝完成後，在需要建立專案的地方打開 terminal 輸入  ，hexo…]]></description><link>https://jasperjn.github.io/blog//2016/08/04/hello-hexo/</link><guid isPermaLink="false">https://jasperjn.github.io/blog//2016/08/04/hello-hexo/</guid><pubDate>Thu, 04 Aug 2016 17:02:14 GMT</pubDate><content:encoded>&lt;p&gt;使用 hexo 建立 blog&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;h2&gt;前言&lt;/h2&gt;
+&lt;p&gt;本篇會介紹使用 &lt;a href=&quot;https://hexo.io/zh-tw/&quot;&gt;hexo&lt;/a&gt; 搭配 &lt;a href=&quot;https://pages.github.com/&quot;&gt;GitHub Pages&lt;/a&gt; 建立自己的 blog&lt;/p&gt;
+&lt;h2&gt;安裝 hexo&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;安裝 hexo 前置作業需要先安裝 Node.js、Git&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -g hexo-cli&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;安裝完成後，在需要建立專案的地方打開 terminal 輸入 &lt;code class=&quot;language-text&quot;&gt;hexo init &amp;lt;專案名稱&amp;gt;&lt;/code&gt;，hexo 指令就會自動幫你建立起 hexo 的專案結構。例如建立 blog 專案：&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;hexo init blog&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;接著進入專安資料夾初始化 git 儲存庫與安裝 hexo 需要的套件：&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;cd&lt;/span&gt; blog &lt;span class=&quot;token comment&quot;&gt;# 進入專案資料夾&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; init &lt;span class=&quot;token comment&quot;&gt;# 初始化 git 版本控管儲存庫&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# 安裝 hexo 需要的套件&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;接下來你可以開始使用 markdown 格式寫文章，使用 &lt;code class=&quot;language-text&quot;&gt;hexo new &amp;lt;文章名稱&amp;gt;&lt;/code&gt; 產生新的文章。例如產生一篇標題為 hello hexo 的文章：&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;hexo new &lt;span class=&quot;token string&quot;&gt;&apos;hello hexo&apos;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# 產生的檔案會在 /source/_posts/hello-hexo.md&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;預覽&lt;/h2&gt;
+&lt;p&gt;如果想要預覽產生出的 blog 長什麼樣子，使用 &lt;code class=&quot;language-text&quot;&gt;hexo generate&lt;/code&gt; 指令會幫我們把 .md 檔案轉換成靜態的 .html 檔案。執行完畢後輸入 &lt;code class=&quot;language-text&quot;&gt;hexo server&lt;/code&gt; 會建立本機伺服器，可以讓我們預覽產生出來的 blog 與文章。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;hexo generate &lt;span class=&quot;token comment&quot;&gt;# 產生網頁靜態檔案&lt;/span&gt;
+hexo server &lt;span class=&quot;token comment&quot;&gt;# 建立本機伺服器&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;部署&lt;/h2&gt;
+&lt;p&gt;部署 hexo 到免費的 GitHub Pages&lt;/p&gt;
+&lt;p&gt;部署之前，需要先在 GitHib 建立一個名稱為 &amp;#x3C;username&gt;.github.io 的 repo
+這個 repo 就是網站的根目錄，建立完成後，先將 repo 的路徑複製起來。&lt;/p&gt;
+&lt;p&gt;回到 hexo 專案目錄，安裝部署工具 hexo-deployer-git&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; hexo-deployer-git --save&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;接著編輯 /_cinfig.yml 檔案修改網站網址以及設定部署方式&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# URL&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;## If your site is put in a subdirectory, set url as &apos;http://yoursite.com/child&apos; and root as &apos;/child/&apos;&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; http&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;//&amp;lt;username&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;.github.io/
+&lt;span class=&quot;token key atrule&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; /
+&lt;span class=&quot;token key atrule&quot;&gt;permalink&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;year/&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;month/&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;day/&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;title/
+&lt;span class=&quot;token key atrule&quot;&gt;permalink_defaults&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+ &lt;span class=&quot;token punctuation&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# Deployment&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;## Docs: https://hexo.io/docs/deployment.html&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;deploy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; git
+  &lt;span class=&quot;token key atrule&quot;&gt;repo&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; https&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;//github.com/&amp;lt;username&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;/&amp;lt;username&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;.github.io.git
+  &lt;span class=&quot;token key atrule&quot;&gt;branch&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; master&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;編輯存檔後，執行 &lt;code class=&quot;language-text&quot;&gt;hexo deploy&lt;/code&gt; 指令會自動幫我們部署到剛剛建立的 repo&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;hexo deploy &lt;span class=&quot;token comment&quot;&gt;# 部署到 git&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;完成！自己的 blog 自己架，立馬到 &lt;code class=&quot;language-text&quot;&gt;http://&amp;lt;username&amp;gt;.github.io/&lt;/code&gt; 就可以看到剛剛本機預覽過的 blog 嚕&lt;/p&gt;</content:encoded></item></channel></rss>
