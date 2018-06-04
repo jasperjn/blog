@@ -1,10 +1,8 @@
-# gatsby-starter-blog-typescript
+[![CircleCI](https://circleci.com/gh/jasperjn/blog.svg?style=svg)](https://circleci.com/gh/jasperjn/blog)
 
-Gatsby starter for creating a blog, base on [gatsby-starter-blog](https://github.com/gatsbyjs/gatsby-starter-blog) written with TypeScript.
+# https://jasperjn.github.io/blog/
 
-Install this starter (assuming Gatsby is installed) by running from your CLI:
-
-`gatsby new gatsby-blog https://github.com/jasperjn/gatsby-starter-blog-typescript`
+Welcome to my personal blog.
 
 ## Running in development
 
