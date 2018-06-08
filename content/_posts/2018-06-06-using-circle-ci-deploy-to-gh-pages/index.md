@@ -134,6 +134,16 @@ fatal: Could not read from remote repository.
 
 ![](https://i.imgur.com/DKJ1FKi.png)
 
+點擊「Create and add <username> user key」
+
+![](https://i.imgur.com/kdmpgZh.png)
+
+系統會自動產生新的 User Key
+
+![](https://i.imgur.com/s1OwCtP.png)
+
+> 記得要保護好自己的 Key 不要公開分享給其他人，圖片範例裡面的 Key 已經被我置換掉了。
+
 回到剛剛 Project Settings 頁面，選擇 BUILD SETTINGS 底下的 Environment Variables。加上 commit 使用的 `GH_EMAIL` `GH_NAME`
 
 ![](https://i.imgur.com/oZD2Gdi.png)
