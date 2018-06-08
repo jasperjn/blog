@@ -1,4 +1,114 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[jasperjn's blog]]></title><description><![CDATA[jasperjn 筆記]]></description><link>https://jasperjn.github.io/blog/</link><generator>RSS for Node</generator><lastBuildDate>Fri, 01 Jun 2018 08:49:16 GMT</lastBuildDate><item><title><![CDATA[使用 Google Cloud Platform 建立 Node.js 網站]]></title><description><![CDATA[本文紀錄使用 Google Cloud Platform 建立 Node.js 網站的步驟。 申請免費試用帳號 前往  Google Cloud  申請免費試用，申請成功會給你 300 美元的額度可以在 1…]]></description><link>https://jasperjn.github.io/blog//2017/10/27/google-cloud-platform/</link><guid isPermaLink="false">https://jasperjn.github.io/blog//2017/10/27/google-cloud-platform/</guid><pubDate>Fri, 27 Oct 2017 11:28:04 GMT</pubDate><content:encoded>&lt;p&gt;本文紀錄使用 Google Cloud Platform 建立 Node.js 網站的步驟。&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[jasperjn's blog]]></title><description><![CDATA[jasperjn 筆記]]></description><link>https://jasperjn.github.io/blog/</link><generator>RSS for Node</generator><lastBuildDate>Fri, 08 Jun 2018 02:51:12 GMT</lastBuildDate><item><title><![CDATA[使用 Circle CI 自動部署到 Github Pages]]></title><description><![CDATA[什麼是 Circle CI？簡單的說就是可以監測程式碼異動後自動跑指令的工具。傳統上在本機開發時，程式碼建置、部署通常都是自己按 IDE 或打指令。當環境不只一個，每天要處理建置、部署是非常繁瑣的事。這時候可以出動 Circle CI…]]></description><link>https://jasperjn.github.io/blog//2018/06/06/using-circle-ci-deploy-to-gh-pages/</link><guid isPermaLink="false">https://jasperjn.github.io/blog//2018/06/06/using-circle-ci-deploy-to-gh-pages/</guid><pubDate>Wed, 06 Jun 2018 16:40:00 GMT</pubDate><content:encoded>&lt;p&gt;什麼是 Circle CI？簡單的說就是可以監測程式碼異動後自動跑指令的工具。傳統上在本機開發時，程式碼建置、部署通常都是自己按 IDE 或打指令。當環境不只一個，每天要處理建置、部署是非常繁瑣的事。這時候可以出動 Circle CI 來當我們的左右手，減少重複性的動作以節省時間。&lt;/p&gt;
+&lt;h2&gt;與 Github 串接&lt;/h2&gt;
+&lt;p&gt;Circle CI 提供了超級簡單的步驟，只要滑鼠點一點一行指令碼都不用寫就可以完成與 Github 串接的設定。&lt;/p&gt;
+&lt;p&gt;打開 Circle CI 官網，點擊「Start Building For Free」。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/y40K8aT.png&quot; alt=&quot;Circle CI Homepage&quot;&gt;&lt;/p&gt;
+&lt;p&gt;選擇使用 Github 帳號登入&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/5uduHrt.png&quot; alt=&quot;Sign Up With GitHub&quot;&gt;&lt;/p&gt;
+&lt;p&gt;允許讀取權限&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/w9bc7El.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;點擊 Add Projects&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/IyTWF7C.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;點擊「Setup Project」選擇要自動部署的專案，這邊我選擇「blog」&lt;/p&gt;
+&lt;p&gt;Operating System 選擇 Linux
+Language 選擇 Node&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/G5NANoV.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;依照底下的 Next Steps 步驟到專案底下建立 &lt;code class=&quot;language-text&quot;&gt;.cycleci/config.yml&lt;/code&gt; 設定檔&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-yaml=&quot;&gt;&lt;code class=&quot;language-yaml=&quot;&gt;# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:7.10
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum &amp;quot;package.json&amp;quot; }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum &amp;quot;package.json&amp;quot; }}
+
+      # run tests!
+      - run: yarn test&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;由於我沒有寫測試程式，不跑 37 行的 &lt;code class=&quot;language-text&quot;&gt;yarn test&lt;/code&gt; 改用 &lt;code class=&quot;language-text&quot;&gt;yarn run build&lt;/code&gt;，如果建置沒出錯就使用 &lt;code class=&quot;language-text&quot;&gt;yarn run deploy&lt;/code&gt; 部署。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-yaml=&quot;&gt;&lt;code class=&quot;language-yaml=&quot;&gt;      # run tests!
+      # - run: yarn test
+      - run: yarn run build
+      - deploy:
+          command: |
+            git config --global user.email $GH_EMAIL
+            git config --global user.name $GH_NAME
+            yarn run deploy&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;開啟 &lt;code class=&quot;language-text&quot;&gt;package.json&lt;/code&gt; 寫好 deploy script，安裝 &lt;code class=&quot;language-text&quot;&gt;gh-pages&lt;/code&gt; 將建置後 public 底下的檔案 commit 到 &lt;code class=&quot;language-text&quot;&gt;gh-pages&lt;/code&gt; 分支&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; i gh-pages -D&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;package.json&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-json=&quot;&gt;&lt;code class=&quot;language-json=&quot;&gt;{
+  ...
+  &amp;quot;scripts&amp;quot;: {
+    &amp;quot;start&amp;quot;: &amp;quot;gatsby develop&amp;quot;,
+    &amp;quot;build&amp;quot;: &amp;quot;gatsby build&amp;quot;,
+    &amp;quot;deploy&amp;quot;:
+      &amp;quot;gatsby build --prefix-paths &amp;amp;&amp;amp; gh-pages -d public -m \&amp;quot;Automated deployment to GitHub Pages: ${CIRCLE_SHA1}\&amp;quot;&amp;quot;
+  }
+}&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;設定 User Key&lt;/h2&gt;
+&lt;p&gt;設定好 &lt;code class=&quot;language-text&quot;&gt;config.yml&lt;/code&gt; &lt;code class=&quot;language-text&quot;&gt;package.json&lt;/code&gt; commit 後先別急著 push，否則 Circle CI 建置時可能會出現以下的錯誤。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;ERROR: The key you are authenticating with has been marked as read only.
+fatal: Could not read from remote repository.&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;原因是先前用滑鼠按一按授權給 Circle CI 讀取的 Key 是唯讀的。只能讀取我們的 Repository 但不能 push。如果要在 Circle CI 上處理用我們的身份 commit、push 需要設定 User Key。&lt;/p&gt;
+&lt;p&gt;到 Settings &gt; Projects &gt; 找到專案點右邊的齒輪&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/SqKLOnS.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;到 Permissions 底下的 Checkout SSH Keys 裡面有 Add User Key 框框，點擊「Authorize With GitHub」&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/DTKinx1.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;允許權限&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/DKJ1FKi.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;點擊「Create and add &lt;username&gt; user key」&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/kdmpgZh.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;系統會自動產生新的 User Key&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/s1OwCtP.png&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;記得要保護好自己的 Key 不要公開分享給其他人，圖片範例裡面的 Key 已經被我置換掉了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;回到剛剛 Project Settings 頁面，選擇 BUILD SETTINGS 底下的 Environment Variables。加上 commit 使用的 &lt;code class=&quot;language-text&quot;&gt;GH_EMAIL&lt;/code&gt; &lt;code class=&quot;language-text&quot;&gt;GH_NAME&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/oZD2Gdi.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;以上設定完成後 push 專案，Circle CI 會自動偵測異動並依照 &lt;code class=&quot;language-text&quot;&gt;config.yml&lt;/code&gt; 設定檔建置、部署到 &lt;code class=&quot;language-text&quot;&gt;gh-pages&lt;/code&gt; 分支。&lt;/p&gt;
+&lt;p&gt;參考資料&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://circleci.com/&quot;&gt;Circle CI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://circleci.com/docs/2.0/gh-bb-integration/&quot;&gt;GitHub and Bitbucket Integration&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.frederikring.com/articles/deploying-github-pages-circle-ci/&quot;&gt;Deploying to GitHub Pages using Circle CI 2.0&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[使用 Google Cloud Platform 建立 Node.js 網站]]></title><description><![CDATA[本文紀錄使用 Google Cloud Platform 建立 Node.js 網站的步驟。 申請免費試用帳號 前往  Google Cloud  申請免費試用，申請成功會給你 300 美元的額度可以在 1…]]></description><link>https://jasperjn.github.io/blog//2017/10/27/google-cloud-platform/</link><guid isPermaLink="false">https://jasperjn.github.io/blog//2017/10/27/google-cloud-platform/</guid><pubDate>Fri, 27 Oct 2017 11:28:04 GMT</pubDate><content:encoded>&lt;p&gt;本文紀錄使用 Google Cloud Platform 建立 Node.js 網站的步驟。&lt;/p&gt;
 &lt;!-- more --&gt;
 &lt;h2&gt;申請免費試用帳號&lt;/h2&gt;
 &lt;p&gt;前往 &lt;a href=&quot;https://cloud.google.com/&quot;&gt;Google Cloud&lt;/a&gt; 申請免費試用，申請成功會給你 300 美元的額度可以在 12 個月的試用期間內使用。申請時需要輸入信用卡做身份驗證。試用期滿之後除非手動升級至付費帳戶，不然不會自動收費。&lt;/p&gt;
