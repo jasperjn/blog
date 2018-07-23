@@ -76,6 +76,10 @@ class Template extends React.Component<TemplateProps> {
         }}
       >
         <Helmet>
+          <meta
+            name="google-site-verification"
+            content="I7_q66GUBNJgq5OyqHXBa-lIxS4O5yCXPy5uu8bE1Sk"
+          />
           <link
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet"
