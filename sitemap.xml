@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url> <loc>https://jasperjn.github.io/blog/blog/2018/07/14/typescript-v4-unknown-type/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/2018/06/06/using-circle-ci-deploy-to-gh-pages/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/2017/10/27/google-cloud-platform/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/2017/07/17/chrome-build-in-screenshot/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/2017/05/11/cannot-install-extensions-on-vscode/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/2017/04/14/git-template/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/2017/04/06/visual-studio-code-v1-11-updates/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/2016/08/17/visual-studio-code-typescript/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/2016/08/05/first-vscode-extension/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/2016/08/04/hello-hexo/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/tags/typescript/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/tags/circle-ci/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/tags/gatsby/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/tags/github/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/tags/google-cloud-platform/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/tags/google-cloud-sdk/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/tags/app-engine/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/tags/gcp/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/tags/chrome/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/tags/vscode/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/tags/git/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/tags/hexo/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://jasperjn.github.io/blog/blog/tags/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+</urlset>
