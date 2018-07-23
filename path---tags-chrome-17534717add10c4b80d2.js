@@ -1,2 +1,2 @@
-webpackJsonp([0x9dadb2ad8e3c],{458:function(e,t){e.exports={data:{allMarkdownRemark:{totalCount:1,edges:[{node:{fields:{slug:"/2017/07/17/chrome-build-in-screenshot/"},frontmatter:{title:"使用 Chrome 內建截圖工具擷取網頁畫面"}}}]}},pathContext:{tag:"chrome"}}}});
+webpackJsonp([0x9dadb2ad8e3c],{461:function(e,t){e.exports={data:{allMarkdownRemark:{totalCount:1,edges:[{node:{fields:{slug:"/2017/07/17/chrome-build-in-screenshot/"},frontmatter:{title:"使用 Chrome 內建截圖工具擷取網頁畫面"}}}]}},pathContext:{tag:"chrome"}}}});
 //# sourceMappingURL=path---tags-chrome-17534717add10c4b80d2.js.map
