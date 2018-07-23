@@ -3,11 +3,12 @@ module.exports = {
     title: `jasperjn's blog`,
     author: 'jasperjn',
     description: 'jasperjn 筆記',
-    siteUrl: 'https://jasperjn.github.io/blog/',
+    siteUrl: 'https://jasperjn.github.io/blog',
     disqus: `jasperjn`
   },
   pathPrefix: '/blog',
   plugins: [
+    `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -55,6 +56,6 @@ module.exports = {
       }
     },
     `gatsby-plugin-typescript`,
-    `gatsby-plugin-styled-components`
+    `gatsby-plugin-styled-components`,
   ]
 }
